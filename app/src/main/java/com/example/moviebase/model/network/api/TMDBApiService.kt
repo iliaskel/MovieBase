@@ -1,9 +1,9 @@
 package com.example.moviebase.model.network.api
 
-import com.example.moviebase.model.network.playingnow.PlayingNowResponse
-import com.example.moviebase.model.network.popular.PopularResponse
-import com.example.moviebase.model.network.toprated.TopRatedResponse
-import com.example.moviebase.model.network.upcoming.UpcomingResponse
+import com.example.moviebase.model.network.movies.PlayingNowResponse
+import com.example.moviebase.model.network.movies.PopularResponse
+import com.example.moviebase.model.network.movies.TopRatedResponse
+import com.example.moviebase.model.network.movies.UpcomingResponse
 import com.example.moviebase.utils.API_KEY_QUERY_PARAMETER
 import com.example.moviebase.utils.PAGE_QUERY_PARAMETER
 import com.example.moviebase.utils.SecretKey

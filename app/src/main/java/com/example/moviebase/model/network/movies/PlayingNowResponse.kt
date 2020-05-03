@@ -1,10 +1,10 @@
-package com.example.moviebase.model.network.toprated
+package com.example.moviebase.model.network.movies
 
 import com.google.gson.annotations.SerializedName
 
-data class TopRatedResponse(
+data class PlayingNowResponse(
     val page: Int?,
-    val results: List<TopRatedMoviesResult?>?,
+    val results: List<MoviesResult?>?,
     @SerializedName("total_pages")
     val totalPages: Int?,
     @SerializedName("total_results")
