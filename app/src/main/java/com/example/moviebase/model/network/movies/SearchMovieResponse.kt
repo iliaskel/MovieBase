@@ -3,10 +3,10 @@ package com.example.moviebase.model.network.movies
 import com.google.gson.annotations.SerializedName
 
 data class SearchMovieResponse(
-    val page: Int?,
-    val results: List<MoviesResult?>?,
+    override val page: Int?,
+    override val results: List<MoviesResult?>?,
     @SerializedName("total_pages")
-    val totalPages: Int?,
+    override val totalPages: Int?,
     @SerializedName("total_results")
-    val totalResults: Int?
-)
+    override val totalResults: Int?
+) : MoviesResponse
