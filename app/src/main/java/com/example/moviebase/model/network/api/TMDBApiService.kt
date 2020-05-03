@@ -1,5 +1,6 @@
 package com.example.moviebase.model.network.api
 
+import com.example.moviebase.model.network.detailedmovie.DetailedMovieResponse
 import com.example.moviebase.model.network.movies.PlayingNowResponse
 import com.example.moviebase.model.network.movies.PopularResponse
 import com.example.moviebase.model.network.movies.TopRatedResponse
@@ -48,5 +49,5 @@ interface TMDBApiService {
         @Path("movieId") movieId: String,
         @Query(API_KEY_QUERY_PARAMETER) apiKey: String = SecretKey,
         @Query(APPEND_TO_RESPONSE_QUERY_PARAMETER) append: String = "recommendations,similar"
-    )
+    ): DetailedMovieResponse
 }
