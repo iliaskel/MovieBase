@@ -73,12 +73,15 @@ class RepositoryImpl(
     }
 
     override fun getMovies(): Flow<List<MoviesEntity>> {
+        return moviesDao.getMovies()
     }
 
     override fun getDetailedMovie(): Flow<DetailedMovieEntity> {
+        return detailedMovieDao.getDetailedMovie()
     }
 
     override fun getExtraMovies(): Flow<List<ExtraMoviesEntity>> {
+        return extraMoviesDao.getExtraMovies()
     }
 
     // endregion
