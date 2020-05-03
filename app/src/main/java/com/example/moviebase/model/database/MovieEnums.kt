@@ -9,7 +9,7 @@ class MovieEnums {
         UPCOMING
     }
 
-    enum class ExtraType {
+    enum class ExtraMovieType {
         RECOMMENDED,
         SIMILAR
     }

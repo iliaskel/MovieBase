@@ -2,7 +2,7 @@ package com.example.moviebase.model.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.moviebase.model.database.MovieEnums.ExtraType
+import com.example.moviebase.model.database.MovieEnums.ExtraMovieType
 
 @Entity(tableName = "extra_movies_table")
 data class ExtraMoviesEntity(
@@ -13,5 +13,5 @@ data class ExtraMoviesEntity(
     private val releaseDate: String,
     private val voteAverage: Double,
     private val voteCount: Int,
-    private val extraType: ExtraType
+    private val extraMovieType: ExtraMovieType
 )
