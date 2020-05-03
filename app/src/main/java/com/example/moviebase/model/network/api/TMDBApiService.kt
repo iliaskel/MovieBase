@@ -15,7 +15,7 @@ import retrofit2.http.Query
  * An interface representing all the queries that the Application is using to interact
  * with the TMDB API.
  */
-interface ApiService {
+interface TMDBApiService {
 
     @GET("/movie/popular")
     suspend fun getPopularMovies(

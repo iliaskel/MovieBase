@@ -20,7 +20,7 @@ import com.example.moviebase.model.database.entity.MoviesEntity
     version = 1,
     exportSchema = false
 )
-abstract class SquadDatabase : RoomDatabase() {
+abstract class TMDBDB : RoomDatabase() {
     abstract fun moviesDao(): MoviesDao
     abstract fun detailedMovieDao(): DetailedMovieDao
     abstract fun extraMoviesDao(): ExtraMoviesDao
