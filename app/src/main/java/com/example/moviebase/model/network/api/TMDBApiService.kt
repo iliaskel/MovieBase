@@ -5,9 +5,11 @@ import com.example.moviebase.model.network.movies.PopularResponse
 import com.example.moviebase.model.network.movies.TopRatedResponse
 import com.example.moviebase.model.network.movies.UpcomingResponse
 import com.example.moviebase.utils.API_KEY_QUERY_PARAMETER
+import com.example.moviebase.utils.APPEND_TO_RESPONSE_QUERY_PARAMETER
 import com.example.moviebase.utils.PAGE_QUERY_PARAMETER
 import com.example.moviebase.utils.SecretKey
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
@@ -41,8 +43,10 @@ interface TMDBApiService {
         @Query(PAGE_QUERY_PARAMETER) page: Int = 1
     ): UpcomingResponse
 
-    @GET("/movie/{movie_id}/images")
-    suspend fun getMovieImages(
-        @Query(API_KEY_QUERY_PARAMETER) apiKey: String = SecretKey
+    @GET("/movie/{movieId}")
+    suspend fun getDetailedMovie(
+        @Path("movieId") movieId: String,
+        @Query(API_KEY_QUERY_PARAMETER) apiKey: String = SecretKey,
+        @Query(APPEND_TO_RESPONSE_QUERY_PARAMETER) append: String = "recommendations,similar"
     )
 }
