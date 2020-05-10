@@ -1,11 +1,7 @@
 package com.example.moviebase.model.repository
 
-import com.example.moviebase.model.database.MovieEnums.ExtraMovieType
-import com.example.moviebase.model.database.MovieEnums.MovieType
 import com.example.moviebase.model.database.TMDBDB
-import com.example.moviebase.model.database.entity.DetailedMovieEntity
-import com.example.moviebase.model.database.entity.ExtraMoviesEntity
-import com.example.moviebase.model.database.entity.MoviesEntity
+import com.example.moviebase.model.database.entity.*
 import com.example.moviebase.model.network.api.TMDBApiService
 import com.example.moviebase.model.network.detailedmovie.DetailedMovieResponse
 import com.example.moviebase.model.network.detailedmovie.Result

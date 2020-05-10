@@ -1,7 +1,8 @@
 package com.example.moviebase.model.repository
 
-import com.example.moviebase.model.database.MovieEnums.MovieType
 import com.example.moviebase.model.database.entity.DetailedMovieEntity
+import com.example.moviebase.model.database.entity.MovieType
+import com.example.moviebase.model.database.entity.ExtraMovieType
 import com.example.moviebase.model.database.entity.ExtraMoviesEntity
 import com.example.moviebase.model.database.entity.MoviesEntity
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +21,8 @@ interface Repository {
      * Fetches a movie with all the details needed and replaces the already
      * existing one (if exists) in the database. Except the details of the selected movie,
      * recommended and similar movies are also fetched.
-     * After fetching the data, they are transformed in a way to represent Objects of the database layer and then are stored.
+     * After fetching the data, they are transformed in a way to represent Objects of the database layer
+     * and then are stored.
      *
      * @param id an [Int] representing the movie to be fetched id
      */
@@ -37,7 +39,7 @@ interface Repository {
     fun getDetailedMovie(): Flow<DetailedMovieEntity>
 
     /**
-     * Returns similar and recommended movies for the [DetailedMovieEntity]
+     * Returns similar and recommended movies ([ExtraMovieType]) for the [DetailedMovieEntity]
      */
     fun getExtraMovies(): Flow<List<ExtraMoviesEntity>>
 
