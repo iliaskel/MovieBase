@@ -5,6 +5,8 @@ import com.example.moviebase.model.database.TMDBDB
 import com.example.moviebase.model.network.api.TMDBApiService
 import com.example.moviebase.model.repository.RepositoryImpl
 import com.example.moviebase.utils.BASE_URL
+import com.example.moviebase.viewmodel.DetailedMovieViewModelImpl
+import com.example.moviebase.viewmodel.MainViewModelImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -27,6 +29,14 @@ val repositoryModule = module {
     single {
         RepositoryImpl(tmdbDb = get(), tmdbApiService = get())
     }
+}
+
+val mainViewModel = module {
+    factory { MainViewModelImpl(get(), get()) }
+}
+
+val detailedMovieViewModel = module {
+    factory { DetailedMovieViewModelImpl(get(), get()) }
 }
 
 // end region
