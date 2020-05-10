@@ -1,4 +1,4 @@
-package com.example.moviebase.model.di
+package com.example.moviebase.di
 
 import androidx.room.Room
 import com.example.moviebase.model.database.TMDBDB
