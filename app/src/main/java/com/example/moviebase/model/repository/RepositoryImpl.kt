@@ -68,6 +68,13 @@ class RepositoryImpl(
         }
     }
 
+    override suspend fun deleteDetailedMovie() {
+        withContext(Dispatchers.IO) {
+            detailedMovieDao.deleteDetailedMovie()
+            extraMoviesDao.deleteExtraMovies()
+        }
+    }
+
     override fun getMovies(): Flow<List<MoviesEntity>> {
         return moviesDao.getMovies()
     }
@@ -130,12 +137,12 @@ class RepositoryImpl(
         }
         val movieEntities = mutableListOf<MoviesEntity>()
         for (movie in moviesResult.iterator()) {
-            movieEntities.add(movie.mapMovie(movieType))
+            movieEntities.add(movie.toMovieEntity(movieType))
         }
         return movieEntities
     }
 
-    private fun MoviesResult.mapMovie(movieType: MovieType): MoviesEntity {
+    private fun MoviesResult.toMovieEntity(movieType: MovieType): MoviesEntity {
         return MoviesEntity(
             id = this.id,
             posterPath = this.posterPath.constructPosterPath(),

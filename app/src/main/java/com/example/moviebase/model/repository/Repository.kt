@@ -1,10 +1,6 @@
 package com.example.moviebase.model.repository
 
-import com.example.moviebase.model.database.entity.DetailedMovieEntity
-import com.example.moviebase.model.database.entity.MovieType
-import com.example.moviebase.model.database.entity.ExtraMovieType
-import com.example.moviebase.model.database.entity.ExtraMoviesEntity
-import com.example.moviebase.model.database.entity.MoviesEntity
+import com.example.moviebase.model.database.entity.*
 import kotlinx.coroutines.flow.Flow
 
 interface Repository {
@@ -24,9 +20,15 @@ interface Repository {
      * After fetching the data, they are transformed in a way to represent Objects of the database layer
      * and then are stored.
      *
-     * @param id an [Int] representing the movie to be fetched id
+     * @param id an [Int] representing the movie's to be fetched id
      */
     suspend fun replaceDetailedMovie(id: Int)
+
+    /**
+     * Deletes the [DetailedMovieEntity] stored in the database together with
+     * the corresponding recommended and similar movies.
+     */
+    suspend fun deleteDetailedMovie()
 
     /**
      * Returns a list of movies with [MovieType] types as a [Flow]
