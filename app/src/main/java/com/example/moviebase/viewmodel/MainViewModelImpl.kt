@@ -7,7 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moviebase.model.database.entity.MoviesEntity
 import com.example.moviebase.model.repository.RepositoryImpl
-import com.example.moviebase.model.representationmodel.Movie
+import com.example.moviebase.model.representation.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch

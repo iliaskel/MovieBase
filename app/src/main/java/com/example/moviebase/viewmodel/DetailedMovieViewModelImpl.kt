@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviebase.model.database.entity.DetailedMovieEntity
 import com.example.moviebase.model.database.entity.ExtraMoviesEntity
 import com.example.moviebase.model.repository.RepositoryImpl
-import com.example.moviebase.model.representationmodel.ExtraMovie
+import com.example.moviebase.model.representation.ExtraMovie
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 

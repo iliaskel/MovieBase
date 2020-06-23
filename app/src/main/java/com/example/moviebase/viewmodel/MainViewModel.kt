@@ -3,7 +3,7 @@ package com.example.moviebase.viewmodel
 import androidx.lifecycle.LiveData
 import com.example.moviebase.model.database.entity.MovieType
 import com.example.moviebase.model.repository.Repository
-import com.example.moviebase.model.representationmodel.Movie
+import com.example.moviebase.model.representation.Movie
 
 interface MainViewModel {
 

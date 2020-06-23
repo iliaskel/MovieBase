@@ -1,4 +1,4 @@
-package com.example.moviebase.model.representationmodel
+package com.example.moviebase.model.representation
 
 import com.example.moviebase.model.database.entity.MovieType
 
