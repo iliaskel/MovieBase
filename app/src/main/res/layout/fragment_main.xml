@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.moviebase.view.widgets.controlsrecyclerview.ControlsRecyclerView
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragmentApplianceInformationSettingsNavigationRecyclerView"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="match_parent">
+
+    <com.example.moviebase.view.widgets.controlsrecyclerview.ControlsRecyclerView
+        android:id="@+id/fragment_main_controls_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/list_item_movie_tile"
+        />
+
+</FrameLayout>
