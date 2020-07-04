@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.example.moviebase.R
 import com.example.moviebase.viewmodel.MainViewModelImpl
+import kotlinx.android.synthetic.main.view_main_movies.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
@@ -31,6 +33,18 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initBindings()
+    }
+
+    // endregion
+
+    // region Private methods
+
+    private fun initBindings() {
+        mainViewModel.getMovies().observe(viewLifecycleOwner, Observer {
+            main_movies_view_title.text = "Movies"
+            main_movies_view_movie_entries_recycler_view.setMovies(it)
+        })
     }
 
     // endregion
