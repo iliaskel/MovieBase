@@ -3,7 +3,7 @@ package com.example.moviebase.viewmodel
 import androidx.lifecycle.LiveData
 import com.example.moviebase.model.database.entity.MovieType
 import com.example.moviebase.model.repository.Repository
-import com.example.moviebase.model.representation.Movie
+import com.example.moviebase.model.representation.MovieEntryModel
 
 interface MainViewModel {
 
@@ -15,6 +15,6 @@ interface MainViewModel {
     /**
      * Returns movies of [MovieType] as LiveData
      */
-    fun getMovies(): LiveData<List<Movie>>
+    fun getMovies(): LiveData<List<MovieEntryModel>>
 
 }
