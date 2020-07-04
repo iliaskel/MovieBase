@@ -3,12 +3,14 @@ package com.example.moviebase.di
 import androidx.room.Room
 import com.example.moviebase.model.database.TMDBDB
 import com.example.moviebase.model.network.api.TMDBApiService
+import com.example.moviebase.model.repository.Repository
 import com.example.moviebase.model.repository.RepositoryImpl
 import com.example.moviebase.utils.BASE_URL
 import com.example.moviebase.viewmodel.DetailedMovieViewModelImpl
 import com.example.moviebase.viewmodel.MainViewModelImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,22 +23,22 @@ val networkModule = module {
 
 val databaseModule = module {
     single {
-        Room.databaseBuilder(get(), TMDBDB::class.java, "tmdb_db")
+        Room.databaseBuilder(get(), TMDBDB::class.java, "tmdb_db").build()
     }
 }
 
 val repositoryModule = module {
-    single {
+    single<Repository> {
         RepositoryImpl(tmdbDb = get(), tmdbApiService = get())
     }
 }
 
 val mainViewModel = module {
-    factory { MainViewModelImpl(get(), get()) }
+    viewModel { MainViewModelImpl(get()) }
 }
 
 val detailedMovieViewModel = module {
-    factory { DetailedMovieViewModelImpl(get(), get()) }
+    viewModel { DetailedMovieViewModelImpl(get(), get()) }
 }
 
 // end region
