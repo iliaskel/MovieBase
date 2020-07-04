@@ -2,7 +2,6 @@ package com.example.moviebase.view.widgets.controlsrecyclerview
 
 import android.util.SparseArray
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecycleViewType
@@ -40,29 +39,4 @@ class ControlsRecyclerAdapter(vararg viewTypes: RecycleViewType) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         getItem(position).bindView(holder)
     }
-
-    //endregion
-
-    /** Callback function using [RecyclerViewItem] inner comparison methods */
-    class ApplianceDashItemCallback : DiffUtil.ItemCallback<RecyclerViewItem>() {
-
-        override fun areItemsTheSame(
-            oldItem: RecyclerViewItem,
-            newItem: RecyclerViewItem
-        ): Boolean {
-            return oldItem.isItemTheSame(newItem)
-
-        }
-
-        override fun areContentsTheSame(
-            oldItem: RecyclerViewItem,
-            newItem: RecyclerViewItem
-        ): Boolean {
-            return oldItem.isContentTheSame(newItem)
-        }
-
-    }
-
-    // endregion
-
 }
