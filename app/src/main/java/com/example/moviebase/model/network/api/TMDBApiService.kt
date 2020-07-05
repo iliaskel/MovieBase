@@ -20,31 +20,31 @@ import retrofit2.http.Query
  */
 interface TMDBApiService {
 
-    @GET("/movie/popular")
+    @GET("movie/popular")
     suspend fun getPopularMovies(
         @Query(API_KEY_QUERY_PARAMETER) apiKey: String = SecretKey,
         @Query(PAGE_QUERY_PARAMETER) page: Int = 1
     ): PopularResponse
 
-    @GET("/movie/now_playing")
+    @GET("movie/now_playing")
     suspend fun getPlayingNowMovies(
         @Query(API_KEY_QUERY_PARAMETER) apiKey: String = SecretKey,
         @Query(PAGE_QUERY_PARAMETER) page: Int = 1
     ): PlayingNowResponse
 
-    @GET("/movie/top_rated")
+    @GET("movie/top_rated")
     suspend fun getTopRatedMovies(
         @Query(API_KEY_QUERY_PARAMETER) apiKey: String = SecretKey,
         @Query(PAGE_QUERY_PARAMETER) page: Int = 1
     ): TopRatedResponse
 
-    @GET("/movie/upcoming")
+    @GET("movie/upcoming")
     suspend fun getUpcomingMovies(
         @Query(API_KEY_QUERY_PARAMETER) apiKey: String = SecretKey,
         @Query(PAGE_QUERY_PARAMETER) page: Int = 1
     ): UpcomingResponse
 
-    @GET("/movie/{movieId}")
+    @GET("movie/{movieId}")
     suspend fun getDetailedMovie(
         @Path("movieId") movieId: String,
         @Query(API_KEY_QUERY_PARAMETER) apiKey: String = SecretKey,
