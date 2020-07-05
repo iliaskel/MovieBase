@@ -1,8 +1,7 @@
 package com.example.moviebase.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moviebase.model.database.entity.DetailedMovieEntity
@@ -13,9 +12,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class DetailedMovieViewModelImpl(
-    private val repository: RepositoryImpl,
-    application: Application
-) : AndroidViewModel(application), DetailedMovieViewModel {
+    private val repository: RepositoryImpl
+) : ViewModel(), DetailedMovieViewModel {
 
     // region Implements
 
