@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.example.moviebase.R
 import com.example.moviebase.view.widgets.controlsrecycler.ControlsRecyclerAdapter
 import com.example.moviebase.view.widgets.controlsrecycler.ControlsRecyclerItemDecoration
@@ -56,7 +57,9 @@ class MainFragment : Fragment() {
     }
 
     private fun initBindings() {
-
+        mainViewModel.getMoviesRecyclerItems().observe(viewLifecycleOwner, Observer {
+            controlsRecyclerAdapter.submitList(it)
+        })
     }
 
     // endregion
