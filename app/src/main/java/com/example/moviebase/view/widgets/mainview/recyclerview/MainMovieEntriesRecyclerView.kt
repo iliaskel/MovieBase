@@ -24,14 +24,14 @@ class MainMovieEntriesRecyclerView @JvmOverloads constructor(
                 return true
             }
         }
-        val carouselEntryDecoration =
+        val mainMovieEntryItemDecoration =
             MainMovieEntryItemDecoration(
                 resources.getDimension(R.dimen.space_m).toInt(),
                 resources.getDimension(R.dimen.space_m).toInt(),
-                0,
+                resources.getDimension(R.dimen.space_s).toInt(),
                 resources.getDimension(R.dimen.space_m).toInt()
             )
-        addItemDecoration(carouselEntryDecoration)
+        addItemDecoration(mainMovieEntryItemDecoration)
         overScrollMode = View.OVER_SCROLL_NEVER
     }
 
