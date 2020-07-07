@@ -35,12 +35,17 @@ class MovieTypeConverters() {
     fun fromMovieTypeToInteger(movieType: MovieType): Int {
         return movieType.code
     }
+
+    @TypeConverter
+    fun fromMovieTypeToTitle(movieType: MovieType): String {
+        return movieType.title
+    }
 }
 
-enum class MovieType(val code: Int) {
-    POPULAR(0),
-    NOW_PLAYING(1),
-    TOP_RATED(2),
-    UPCOMING(3),
-    UNKNOWN(-1)
+enum class MovieType(val code: Int, val title: String) {
+    POPULAR(0, "Popular"),
+    NOW_PLAYING(1, "Now Playing"),
+    TOP_RATED(2, "Top Rated"),
+    UPCOMING(3, "Upcoming"),
+    UNKNOWN(-1, "")
 }
