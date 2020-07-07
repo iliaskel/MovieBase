@@ -9,9 +9,9 @@ import kotlinx.android.synthetic.main.list_item_movie_tile.view.*
 class MainMovieItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bindMovieViewHolder(movieEntryModel: MovieEntryModel) {
-        itemView.movie_tile_movie_title.text = movieEntryModel.title
-        Glide.with(itemView).load(movieEntryModel.posterPath)
+        Glide.with(itemView).load(movieEntryModel.posterPath).centerCrop()
             .into(itemView.movie_tile_movie_image)
-
     }
+
+
 }

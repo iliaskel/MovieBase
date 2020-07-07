@@ -1,21 +1,25 @@
-package com.example.moviebase.view.widgets.mainview
+package com.example.moviebase.view.widgets.controlsrecycler.items
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecycleViewType
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
 import com.example.moviebase.model.representation.MainMoviesModel
+import com.example.moviebase.view.widgets.mainview.MainMoviesView
 
-class MainMoviesViewRecyclerItem(private val mainMoviesModel: MainMoviesModel) :
+class MoviesRecyclerViewItem(private val mainMoviesModel: MainMoviesModel) :
     RecyclerViewItem {
-
 
     companion object {
         val viewType = object : RecycleViewType {
             override fun getItemViewType(): Int = this.hashCode()
 
             override fun createViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
-                return MainMoviesViewHolder(MainMoviesView(parent.context))
+                return MainMoviesViewHolder(
+                    MainMoviesView(
+                        parent.context
+                    )
+                )
             }
         }
     }
@@ -31,13 +35,13 @@ class MainMoviesViewRecyclerItem(private val mainMoviesModel: MainMoviesModel) :
     }
 
     override fun isItemTheSame(itemToCompare: RecyclerViewItem): Boolean {
-        return if (itemToCompare is MainMoviesViewRecyclerItem) {
+        return if (itemToCompare is MoviesRecyclerViewItem) {
             mainMoviesModel.id == itemToCompare.mainMoviesModel.id
         } else false
     }
 
     override fun isContentTheSame(itemToCompare: RecyclerViewItem): Boolean {
-        return if (itemToCompare is MainMoviesViewRecyclerItem) {
+        return if (itemToCompare is MoviesRecyclerViewItem) {
             mainMoviesModel == itemToCompare.mainMoviesModel
         } else false
     }

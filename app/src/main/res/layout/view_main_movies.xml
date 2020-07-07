@@ -8,6 +8,7 @@
 
     <TextView
         android:id="@+id/main_movies_view_title"
+        style="@style/TextAppearance.MdcTypographyStyles.Headline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_m"
