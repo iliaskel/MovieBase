@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.example.moviebase.R
+import com.example.moviebase.view.widgets.controlsrecycler.ControlsRecyclerAdapter
+import com.example.moviebase.view.widgets.controlsrecycler.ControlsRecyclerItemDecoration
+import com.example.moviebase.view.widgets.controlsrecycler.items.MoviesRecyclerViewItem
 import com.example.moviebase.viewmodel.MainViewModelImpl
-import kotlinx.android.synthetic.main.view_main_movies.*
+import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
@@ -16,14 +18,14 @@ class MainFragment : Fragment() {
     // region Fields
 
     private val mainViewModel by viewModel<MainViewModelImpl>()
+    private val controlsRecyclerAdapter =
+        ControlsRecyclerAdapter(MoviesRecyclerViewItem.viewType)
 
     // endregion
 
     // region Lifecycle overrides functions
 
-    override
-
-    fun onCreateView(
+    override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,6 +35,15 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        main_fragment_controls_recycler_view.apply {
+            adapter = controlsRecyclerAdapter
+            addItemDecoration(
+                ControlsRecyclerItemDecoration(
+                    resources.getDimension(R.dimen.space_s).toInt()
+                )
+            )
+        }
+        requestMovies()
         initBindings()
     }
 
@@ -40,11 +51,12 @@ class MainFragment : Fragment() {
 
     // region Private methods
 
+    private fun requestMovies() {
+        mainViewModel.fetchMovies()
+    }
+
     private fun initBindings() {
-        mainViewModel.getMovies().observe(viewLifecycleOwner, Observer {
-            main_movies_view_title.text = "Movies"
-            main_movies_view_movie_entries_recycler_view.setMovies(it)
-        })
+
     }
 
     // endregion

@@ -1,4 +1,4 @@
-package com.example.moviebase.view.widgets.controlsrecyclerview
+package com.example.moviebase.view.widgets.controlsrecycler
 
 import android.util.SparseArray
 import android.view.ViewGroup

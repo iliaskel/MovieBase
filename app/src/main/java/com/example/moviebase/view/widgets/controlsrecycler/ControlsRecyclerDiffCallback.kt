@@ -1,4 +1,4 @@
-package com.example.moviebase.view.widgets.controlsrecyclerview
+package com.example.moviebase.view.widgets.controlsrecycler
 
 import androidx.recyclerview.widget.DiffUtil
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
