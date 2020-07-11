@@ -9,7 +9,7 @@
     style="@style/movie_simple_tile"
     android:layout_width="180dp"
     android:layout_height="250dp"
-    android:elevation="@dimen/space_m"
+    android:elevation="@dimen/movie_tile_default_state_elevation"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
@@ -18,7 +18,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/movie_tile_movie_image"
+            android:id="@+id/popular_movie_tile_movie_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"

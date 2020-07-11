@@ -1,17 +1,28 @@
 <!--?xml version="1.0" encoding="UTF-8"?-->
 <resources>
-    <color name="primary">#6200EE</color>
-    <color name="primaryVariant">#3700B3</color>
-    <color name="secondary">#03DAC6</color>
-    <color name="secondaryVariant">#018786</color>
+
+    <color name="primary">#0d253f</color>
+    <color name="primaryLight">#394d6a</color>
+    <color name="primaryDark">#00001a</color>
+    <color name="tertiary">#90cea1</color>
+
+
+    <color name="secondary">#00789e</color>
+    <color name="secondaryLight">#51a7cf</color>
+    <color name="secondaryDark">#004c6f</color>
 
     <color name="background">#FFFFFF</color>
     <color name="surface">#FFFFFF</color>
     <color name="error">#B00020</color>
 
-    <color name="onPrimary">#FFFFFF</color>
-    <color name="onSecondary">#000000</color>
+    <color name="onPrimary">#ffffff</color>
+    <color name="onSecondary">#ffffff</color>
     <color name="onBackground">#000000</color>
-    <color name="onSurface">#000000</color>
+    <color name="onSurface">#9090cea1</color>
     <color name="onError">#FFFFFF</color>
+
+    <color name="background_gradient_start_color">#1090cea1</color>
+    <color name="background_gradient_end_color">#2090cea1</color>
+
+
 </resources>

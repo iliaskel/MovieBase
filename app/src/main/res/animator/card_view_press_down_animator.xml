@@ -4,10 +4,10 @@
     <item android:state_pressed="true">
         <set>
             <objectAnimator
-                android:duration="200"
+                android:duration="100"
                 android:propertyName="translationZ"
-                android:valueFrom="2dp"
-                android:valueTo="6dp"
+                android:valueFrom="@dimen/movie_tile_default_state_elevation"
+                android:valueTo="@dimen/movie_tile_pressed_state_elevation"
                 android:valueType="floatType" />
 
             <objectAnimator
@@ -27,9 +27,10 @@
     <item>
         <set>
             <objectAnimator
-                android:duration="200"
+                android:duration="100"
                 android:propertyName="translationZ"
-                android:valueTo="2dp"
+                android:valueFrom="@dimen/movie_tile_pressed_state_elevation"
+                android:valueTo="@dimen/movie_tile_default_state_elevation"
                 android:valueType="floatType" />
 
             <objectAnimator
