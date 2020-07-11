@@ -6,24 +6,30 @@
     android:layout_height="match_parent"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/main_movies_view_title"
-        style="@style/TextAppearance.MdcTypographyStyles.Headline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_m"
-        android:layout_marginTop="@dimen/space_s"
+        android:elevation="@dimen/movie_view_title_default_state_elevation"
+        android:textAlignment="viewStart"
+        android:textColor="@color/primary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/main_movies_view_movie_entries_recycler_view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/parent"
+        app:layout_constraintVertical_bias="1.0"
         tools:text="Movies" />
 
     <com.example.moviebase.view.widgets.mainview.recyclerview.MainMovieEntriesRecyclerView
         android:id="@+id/main_movies_view_movie_entries_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_s"
+        android:elevation="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_movies_view_title"
+        app:layout_constraintTop_toBottomOf="@id/main_movies_view_title"
         tools:listitem="@layout/list_item_movie_tile" />
 
 </merge>

@@ -12,6 +12,4 @@ class MainMovieItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
         Glide.with(itemView).load(movieEntryModel.posterPath).centerCrop()
             .into(itemView.movie_tile_movie_image)
     }
-
-
 }
