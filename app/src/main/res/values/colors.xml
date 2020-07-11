@@ -18,7 +18,7 @@
     <color name="onPrimary">#ffffff</color>
     <color name="onSecondary">#ffffff</color>
     <color name="onBackground">#000000</color>
-    <color name="onSurface">#9090cea1</color>
+    <color name="onSurface">#99000000</color>
     <color name="onError">#FFFFFF</color>
 
     <color name="background_gradient_start_color">#1090cea1</color>

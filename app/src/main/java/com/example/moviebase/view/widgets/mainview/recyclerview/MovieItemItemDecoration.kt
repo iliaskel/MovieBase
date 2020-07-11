@@ -4,7 +4,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class MovieEntryItemDecoration(
+class MovieItemItemDecoration(
     private val outerItemOffset: Int,
     private val spaceBetween: Int, private val marginTop: Int,
     private val marginBottom: Int

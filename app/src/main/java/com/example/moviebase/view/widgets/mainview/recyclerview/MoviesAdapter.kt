@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviebase.R
 import com.example.moviebase.model.database.entity.MovieType
 import com.example.moviebase.model.representation.movies.MovieEntryModel
+import com.example.moviebase.view.widgets.mainview.recyclerview.viewholder.MainMovieItemViewHolder
+import com.example.moviebase.view.widgets.mainview.recyclerview.viewholder.PopularMoviesItemViewHolder
 import kotlinx.android.synthetic.main.widget_fragment_main_movie_tile_list_item.view.*
 
 
@@ -66,12 +68,18 @@ class MoviesAdapter :
     // region Private Methods
 
     private fun getCalculatedPopularMoviesViewHolder(itemView: View): PopularMoviesItemViewHolder {
-        val viewHolder = PopularMoviesItemViewHolder(itemView)
+        val viewHolder =
+            PopularMoviesItemViewHolder(
+                itemView
+            )
         viewHolder.itemView.apply {
             if (popularMovieCalculateTileWidth == 0) {
                 calculatePopularMovieTileSize(resources)
             }
+            layoutParams.width = popularMovieCalculateTileWidth
+            layoutParams.height = popularMovieCalculateTileHeight
         }
+
         return viewHolder
     }
 
@@ -82,15 +90,18 @@ class MoviesAdapter :
         val density: Float = resources.displayMetrics.density
         val dpWidth: Float = resources.displayMetrics.widthPixels / density
 
-        val recommendedWidth = dpWidth * 0.70
+        val recommendedWidth = dpWidth * 0.80
 
         popularMovieCalculateTileWidth = (recommendedWidth * density).toInt()
         popularMovieCalculateTileHeight =
-            popularMovieCalculateTileWidth - (popularMovieCalculateTileWidth / 4)
+            popularMovieCalculateTileWidth - (popularMovieCalculateTileWidth / 3)
     }
 
     private fun getCalculatedMainMoviesViewHolder(itemView: View): MainMovieItemViewHolder {
-        val viewHolder = MainMovieItemViewHolder(itemView)
+        val viewHolder =
+            MainMovieItemViewHolder(
+                itemView
+            )
         viewHolder.itemView.apply {
             if (mainMovieCalculatedTileWidth == 0) {
                 calculateMainMovieTileWidth(resources)

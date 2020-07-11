@@ -1,4 +1,4 @@
-package com.example.moviebase.view.widgets.mainview.recyclerview
+package com.example.moviebase.view.widgets.mainview.recyclerview.viewholder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

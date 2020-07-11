@@ -22,9 +22,10 @@ class ControlsRecyclerView @JvmOverloads constructor(
         }
 
         itemAnimator = DefaultItemAnimator().apply {
-            supportsChangeAnimations = false
+            supportsChangeAnimations = true
+            addDuration = 1500
+            animate()
         }
-
         overScrollMode = View.OVER_SCROLL_NEVER
     }
 

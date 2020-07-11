@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviebase.R
 import com.example.moviebase.model.representation.movies.MovieEntryModel
 
-class MovieEntriesRecyclerView @JvmOverloads constructor(
+class MovieItemsRecyclerView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -25,7 +25,7 @@ class MovieEntriesRecyclerView @JvmOverloads constructor(
             }
         }
         val mainMovieEntryItemDecoration =
-            MovieEntryItemDecoration(
+            MovieItemItemDecoration(
                 resources.getDimension(R.dimen.space_m).toInt(),
                 resources.getDimension(R.dimen.space_m).toInt(),
                 resources.getDimension(R.dimen.space_s).toInt(),

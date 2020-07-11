@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="1.0"
         tools:text="Movies" />
 
-    <com.example.moviebase.view.widgets.mainview.recyclerview.MovieEntriesRecyclerView
+    <com.example.moviebase.view.widgets.mainview.recyclerview.MovieItemsRecyclerView
         android:id="@+id/movies_view_movie_entries_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
