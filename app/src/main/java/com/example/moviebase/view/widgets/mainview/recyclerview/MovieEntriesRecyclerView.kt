@@ -6,9 +6,9 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviebase.R
-import com.example.moviebase.model.representation.MovieEntryModel
+import com.example.moviebase.model.representation.movies.MovieEntryModel
 
-class MainMovieEntriesRecyclerView @JvmOverloads constructor(
+class MovieEntriesRecyclerView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -18,14 +18,14 @@ class MainMovieEntriesRecyclerView @JvmOverloads constructor(
     // region Constructors
 
     init {
-        adapter = MainMovieEntriesAdapter()
+        adapter = MoviesAdapter()
         layoutManager = object : LinearLayoutManager(context, RecyclerView.HORIZONTAL, false) {
             override fun supportsPredictiveItemAnimations(): Boolean {
                 return true
             }
         }
         val mainMovieEntryItemDecoration =
-            MainMovieEntryItemDecoration(
+            MovieEntryItemDecoration(
                 resources.getDimension(R.dimen.space_m).toInt(),
                 resources.getDimension(R.dimen.space_m).toInt(),
                 resources.getDimension(R.dimen.space_s).toInt(),
@@ -40,7 +40,7 @@ class MainMovieEntriesRecyclerView @JvmOverloads constructor(
     // region Public Methods
 
     fun setMovies(movieEntries: List<MovieEntryModel>) {
-        (adapter as MainMovieEntriesAdapter).submitList(movieEntries)
+        (adapter as MoviesAdapter).submitList(movieEntries)
     }
 
     // endregion

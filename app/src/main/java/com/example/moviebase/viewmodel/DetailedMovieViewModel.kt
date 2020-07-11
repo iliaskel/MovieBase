@@ -3,7 +3,7 @@ package com.example.moviebase.viewmodel
 import androidx.lifecycle.LiveData
 import com.example.moviebase.model.database.entity.DetailedMovieEntity
 import com.example.moviebase.model.database.entity.ExtraMovieType
-import com.example.moviebase.model.representation.ExtraMovie
+import com.example.moviebase.model.representation.movies.ExtraMovieEntryModel
 
 interface DetailedMovieViewModel {
 
@@ -20,5 +20,5 @@ interface DetailedMovieViewModel {
     /**
      * Returns similar and recommended movies ([ExtraMovieType]) for the [DetailedMovieEntity] as [LiveData]
      */
-    fun getExtraMovies(): LiveData<List<ExtraMovie>>
+    fun getExtraMovies(): LiveData<List<ExtraMovieEntryModel>>
 }

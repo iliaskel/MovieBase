@@ -8,7 +8,7 @@ import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
 import com.example.moviebase.model.database.entity.MovieType
 import com.example.moviebase.model.database.entity.MoviesEntity
 import com.example.moviebase.model.repository.RepositoryImpl
-import com.example.moviebase.model.representation.MovieEntryModel
+import com.example.moviebase.model.representation.movies.MovieEntryModel
 import com.example.moviebase.model.representation.MoviesRecyclerViewItemModel
 import com.example.moviebase.view.widgets.controlsrecycler.items.MoviesRecyclerViewItem
 import kotlinx.coroutines.Dispatchers
@@ -37,8 +37,8 @@ class MainViewModelImpl(
         return repository.getMovies().map { movieList ->
             val items = mutableListOf<RecyclerViewItem>()
             movieList.toRepresentationModelList().apply {
-                addMoviesByMovieType(MovieType.NOW_PLAYING, items)
                 addMoviesByMovieType(MovieType.POPULAR, items)
+                addMoviesByMovieType(MovieType.NOW_PLAYING, items)
                 addMoviesByMovieType(MovieType.TOP_RATED, items)
                 addMoviesByMovieType(MovieType.UPCOMING, items)
             }
@@ -51,7 +51,7 @@ class MainViewModelImpl(
         items: MutableList<RecyclerViewItem>
     ) {
         this.filter {
-            it.type == movieType
+            it.movieType == movieType
         }.apply {
             items.add(
                 MoviesRecyclerViewItem(
@@ -73,7 +73,7 @@ class MainViewModelImpl(
             releaseDate = this.releaseDate,
             voteAverage = this.voteAverage,
             voteCount = this.voteCount,
-            type = this.type,
+            movieType = this.type,
             clickAction = getClickAction(this.id)
         )
     }

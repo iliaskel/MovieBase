@@ -20,7 +20,9 @@ class MainFragment : Fragment() {
 
     private val mainViewModel by viewModel<MainViewModelImpl>()
     private val controlsRecyclerAdapter =
-        ControlsRecyclerAdapter(MoviesRecyclerViewItem.viewType)
+        ControlsRecyclerAdapter(
+            MoviesRecyclerViewItem.viewType
+        )
 
     // endregion
 

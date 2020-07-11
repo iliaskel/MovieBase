@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviebase.model.database.entity.DetailedMovieEntity
 import com.example.moviebase.model.database.entity.ExtraMoviesEntity
 import com.example.moviebase.model.repository.RepositoryImpl
-import com.example.moviebase.model.representation.ExtraMovie
+import com.example.moviebase.model.representation.movies.ExtraMovieEntryModel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
@@ -27,7 +27,7 @@ class DetailedMovieViewModelImpl(
         return repository.getDetailedMovie().asLiveData()
     }
 
-    override fun getExtraMovies(): LiveData<List<ExtraMovie>> {
+    override fun getExtraMovies(): LiveData<List<ExtraMovieEntryModel>> {
         return repository.getExtraMovies().map { extraMoviesList ->
             extraMoviesList.toRepresentationModelList()
         }.asLiveData()
@@ -37,16 +37,16 @@ class DetailedMovieViewModelImpl(
 
     // region Extension Functions
 
-    private fun List<ExtraMoviesEntity>.toRepresentationModelList(): List<ExtraMovie> {
-        val extraMoviesList = mutableListOf<ExtraMovie>()
+    private fun List<ExtraMoviesEntity>.toRepresentationModelList(): List<ExtraMovieEntryModel> {
+        val extraMoviesList = mutableListOf<ExtraMovieEntryModel>()
         for (movie in this) {
             extraMoviesList.add(movie.toRepresentationModel())
         }
         return extraMoviesList
     }
 
-    private fun ExtraMoviesEntity.toRepresentationModel(): ExtraMovie {
-        return ExtraMovie(
+    private fun ExtraMoviesEntity.toRepresentationModel(): ExtraMovieEntryModel {
+        return ExtraMovieEntryModel(
             id = this.id,
             title = this.title,
             releaseDate = this.releaseDate,

@@ -17,6 +17,7 @@ class ControlsRecyclerItemDecoration(private val outerItemOffset: Int) :
             if (childAdapterPosition != RecyclerView.NO_POSITION) {
                 val itemCount = parent.adapter?.itemCount ?: 0
                 val navigationViewType = MoviesRecyclerViewItem.viewType.getItemViewType()
+                val viewtype = MoviesRecyclerViewItem.viewType
                 top = if (childAdapterPosition == 0) {
                     outerItemOffset
                 } else 0
@@ -28,7 +29,7 @@ class ControlsRecyclerItemDecoration(private val outerItemOffset: Int) :
                         ) != navigationViewType
                     ) {
                         outerItemOffset
-                    } else 0
+                    } else outerItemOffset
             }
         }
     }
