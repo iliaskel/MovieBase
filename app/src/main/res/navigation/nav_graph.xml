@@ -8,5 +8,17 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.moviebase.view.MainFragment"
-        android:label="MainFragment" />
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_detailedMovieFragment"
+            app:destination="@id/detailedMovieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailedMovieFragment"
+        android:name="com.example.moviebase.view.DetailedMovieFragment"
+        android:label="DetailedMovieFragment" >
+        <argument
+            android:name="movieId"
+            app:argType="string" />
+    </fragment><action android:id="@+id/action_global_detailedMovieFragment" app:destination="@id/detailedMovieFragment"/>
 </navigation>

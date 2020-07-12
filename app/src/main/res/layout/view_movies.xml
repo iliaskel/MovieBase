@@ -14,7 +14,7 @@
         android:elevation="@dimen/movie_view_title_default_state_elevation"
         android:textAlignment="viewStart"
         android:textColor="@color/onSurface"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:typeface="sans"
         app:layout_constraintBottom_toTopOf="@+id/movies_view_movie_entries_recycler_view"
