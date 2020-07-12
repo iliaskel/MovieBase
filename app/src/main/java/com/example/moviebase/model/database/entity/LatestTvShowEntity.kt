@@ -3,8 +3,8 @@ package com.example.moviebase.model.database.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "detailed_movies_table")
-data class DetailedMovieEntity(
+@Entity(tableName = "latest_tv_show_table")
+data class LatestTvShowEntity(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
     val title: String,
