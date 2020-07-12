@@ -5,18 +5,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
+import com.example.moviebase.NavGraphDirections
 import com.example.moviebase.model.database.entity.MovieType
 import com.example.moviebase.model.database.entity.MoviesEntity
-import com.example.moviebase.model.repository.RepositoryImpl
-import com.example.moviebase.model.representation.movies.MovieEntryModel
+import com.example.moviebase.model.repository.MoviesRepositoryImpl
 import com.example.moviebase.model.representation.MoviesRecyclerViewItemModel
+import com.example.moviebase.model.representation.movies.MovieEntryModel
 import com.example.moviebase.view.widgets.controlsrecycler.items.MoviesRecyclerViewItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class MainViewModelImpl(
-    private val repository: RepositoryImpl
+    private val repository: MoviesRepositoryImpl
 ) : ViewModel(), MainViewModel {
 
     // region Implements
@@ -91,8 +92,9 @@ class MainViewModelImpl(
     // region Private Functions
 
     private fun getClickAction(id: Int): (() -> Unit)? {
-        // trigger navigation to detailed screen
-        return null
+        return {
+            NavGraphDirections.actionGlobalDetailedMovieFragment(id.toString())
+        }
     }
 
     // endregion

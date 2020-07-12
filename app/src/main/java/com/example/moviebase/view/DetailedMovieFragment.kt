@@ -6,32 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.moviebase.R
 import com.example.moviebase.view.widgets.controlsrecycler.ControlsRecyclerAdapter
 import com.example.moviebase.view.widgets.controlsrecycler.ControlsRecyclerItemDecoration
-import com.example.moviebase.view.widgets.controlsrecycler.items.MoviesRecyclerViewItem
-import com.example.moviebase.viewmodel.MainViewModel
-import com.example.moviebase.viewmodel.MainViewModelImpl
+import com.example.moviebase.viewmodel.DetailedMovieViewModelImpl
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ViewModelParameter
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.androidx.viewmodel.koin.getViewModel
 import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.qualifier.Qualifier
 
-class MainFragment : Fragment() {
+class DetailedMovieFragment : Fragment() {
+
 
     // region Fields
 
-    private val mainViewModel: MainViewModel by viewModel<MainViewModelImpl>()
-    private val controlsRecyclerAdapter =
-        ControlsRecyclerAdapter(
-            MoviesRecyclerViewItem.viewType
-        )
+    private val detailedMovieViewModel: DetailedMovieViewModelImpl by sharedGraphViewModel(R.id.nav_graph)
+    private val controlsRecyclerAdapter = ControlsRecyclerAdapter()
+    private val args: DetailedMovieFragmentArgs by navArgs()
 
     // endregion
 
@@ -42,7 +38,7 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        return inflater.inflate(R.layout.fragment_detailed_movie, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,23 +51,23 @@ class MainFragment : Fragment() {
                 )
             )
         }
-        requestMovies()
-        initBindings()
+        requestDetailedMovie()
+//        initBindings()
     }
 
     // endregion
 
     // region Private methods
 
-    private fun requestMovies() {
-        mainViewModel.fetchMovies()
+    private fun requestDetailedMovie() {
+        detailedMovieViewModel.fetchDetailedMovie(args.movieId)
     }
 
-    private fun initBindings() {
-        mainViewModel.getMoviesRecyclerItems().observe(viewLifecycleOwner, Observer {
-            controlsRecyclerAdapter.submitList(it)
-        })
-    }
+//    private fun initBindings() {
+//        detailedMovieViewModel.getDetailedMovie().observe(viewLifecycleOwner, Observer {
+//            controlsRecyclerAdapter.submitList(it)
+//        })
+//    }
 
     // endregion
 

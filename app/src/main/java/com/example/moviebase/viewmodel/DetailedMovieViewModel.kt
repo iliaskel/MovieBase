@@ -10,7 +10,7 @@ interface DetailedMovieViewModel {
     /**
      * Triggers the fetching of the details of a movie, given the movie's id.
      */
-    suspend fun fetchDetailedMovie(id: Int)
+    fun fetchDetailedMovie(id: String)
 
     /**
      * Returns a [DetailedMovieEntity] as LiveData

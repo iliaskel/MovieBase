@@ -6,19 +6,20 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moviebase.model.database.entity.DetailedMovieEntity
 import com.example.moviebase.model.database.entity.ExtraMoviesEntity
-import com.example.moviebase.model.repository.RepositoryImpl
+import com.example.moviebase.model.repository.MoviesRepositoryImpl
 import com.example.moviebase.model.representation.movies.ExtraMovieEntryModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class DetailedMovieViewModelImpl(
-    private val repository: RepositoryImpl
+    private val repository: MoviesRepositoryImpl
 ) : ViewModel(), DetailedMovieViewModel {
 
     // region Implements
 
-    override suspend fun fetchDetailedMovie(id: Int) {
-        viewModelScope.launch {
+    override fun fetchDetailedMovie(id: String) {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.replaceDetailedMovie(id)
         }
     }
@@ -63,7 +64,7 @@ class DetailedMovieViewModelImpl(
     // region Private Functions
 
     private fun getClickAction(id: Int): (() -> Unit)? {
-        // trigger navigation to detailed of the movie
+
         return null
     }
 
