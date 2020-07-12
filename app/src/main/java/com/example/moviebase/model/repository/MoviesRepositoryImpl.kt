@@ -8,18 +8,23 @@ import com.example.moviebase.model.network.detailedmovie.Result
 import com.example.moviebase.model.network.movies.MoviesResponse
 import com.example.moviebase.model.network.movies.MoviesResult
 import com.example.moviebase.utils.IMAGES_BASE_URL
+import com.example.moviebase.utils.IMAGE_BIG_SIZE
 import com.example.moviebase.utils.IMAGE_SMALL_SIZE
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 
-class RepositoryImpl(
+class MoviesRepositoryImpl(
     tmdbDb: TMDBDB,
     private val tmdbApiService: TMDBApiService
-) : Repository {
+) : MoviesRepository {
+
+    // region Fields
 
     private val moviesDao = tmdbDb.moviesDao()
     private val extraMoviesDao = tmdbDb.extraMoviesDao()
     private val detailedMovieDao = tmdbDb.detailedMovieDao()
+
+    // endregion
 
     // region Implements
 
@@ -52,9 +57,9 @@ class RepositoryImpl(
         }
     }
 
-    override suspend fun replaceDetailedMovie(id: Int) {
+    override suspend fun replaceDetailedMovie(id: String) {
         withContext(Dispatchers.IO) {
-            val detailedMovie = tmdbApiService.getDetailedMovie(id.toString())
+            val detailedMovie = tmdbApiService.getDetailedMovie(id)
             val similarMovies =
                 detailedMovie.similar.results.toExtraMoviesEntities(ExtraMovieType.SIMILAR)
             val recommendedMovies =
@@ -94,7 +99,7 @@ class RepositoryImpl(
     private fun DetailedMovieResponse.toDetailedMovieEntity(): DetailedMovieEntity {
         return DetailedMovieEntity(
             id = this.id,
-            posterPath = this.posterPath.constructPosterPath(),
+            posterPath = this.posterPath.constructSmallPosterPath(),
             title = this.originalTitle,
             releaseDate = this.releaseDate,
             voteCount = this.voteCount,
@@ -110,7 +115,7 @@ class RepositoryImpl(
                 ExtraMoviesEntity(
                     id = movie.id,
                     title = movie.originalTitle,
-                    posterPath = movie.posterPath.constructPosterPath(),
+                    posterPath = movie.posterPath.constructSmallPosterPath(),
                     voteAverage = movie.voteAverage,
                     voteCount = movie.voteCount,
                     releaseDate = movie.releaseDate,
@@ -145,7 +150,7 @@ class RepositoryImpl(
     private fun MoviesResult.toMovieEntity(movieType: MovieType): MoviesEntity {
         return MoviesEntity(
             id = this.id,
-            posterPath = this.posterPath.constructPosterPath(),
+            posterPath = this.posterPath.constructSmallPosterPath(),
             releaseDate = this.releaseDate,
             title = this.originalTitle,
             type = movieType,
@@ -154,8 +159,12 @@ class RepositoryImpl(
         )
     }
 
-    private fun String.constructPosterPath(): String {
+    private fun String.constructSmallPosterPath(): String {
         return IMAGES_BASE_URL.plus(IMAGE_SMALL_SIZE).plus(this)
+    }
+
+    private fun String.constructBigPosterPath(): String {
+        return IMAGES_BASE_URL.plus(IMAGE_BIG_SIZE).plus(this)
     }
 
     // endregion
