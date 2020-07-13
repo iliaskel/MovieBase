@@ -11,6 +11,8 @@
     android:clickable="true"
     android:elevation="@dimen/movie_tile_default_state_elevation"
     android:focusable="true"
+    android:paddingTop="@dimen/space_s"
+    android:paddingBottom="@dimen/space_s"
     android:stateListAnimator="@animator/card_view_press_down_animator"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
@@ -36,23 +38,27 @@
             android:layout_marginStart="@dimen/space_m"
             android:layout_marginEnd="@dimen/space_m"
             android:layout_marginBottom="@dimen/space_m"
+            android:elevation="10dp"
             android:lines="2"
             android:maxLines="2"
-            android:textColor="@color/onPrimary"
-            android:textSize="36sp"
+            android:paddingTop="@dimen/space_xl"
+            android:textColor="@color/onSurface"
+            android:textSize="26sp"
             app:layout_constraintBottom_toBottomOf="@id/popular_movie_tile_movie_image"
             app:layout_constraintEnd_toEndOf="@id/popular_movie_tile_movie_image"
             app:layout_constraintStart_toStartOf="@+id/popular_movie_tile_movie_image"
             tools:text="The name of the movie" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:elevation="7dp"
+            android:src="@drawable/transparent_drawable"
+            android:layout_marginTop="@dimen/space_xxl"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
