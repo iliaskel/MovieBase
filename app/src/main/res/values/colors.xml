@@ -3,7 +3,7 @@
 
     <color name="primary">#0d253f</color>
     <color name="primaryLight">#394d6a</color>
-    <color name="primaryDark">#00001a</color>
+    <color name="primaryDark">#000000</color>
     <color name="tertiary">#90cea1</color>
 
 
@@ -12,17 +12,17 @@
     <color name="secondaryDark">#004c6f</color>
 
     <color name="background">#FFFFFF</color>
-    <color name="surface">#FFFFFF</color>
+    <color name="surface">#700d253f</color>
     <color name="error">#B00020</color>
 
-    <color name="onPrimary">#ffffff</color>
+    <color name="onPrimary">#FFFFFFFF</color>
     <color name="onSecondary">#ffffff</color>
     <color name="onBackground">#000000</color>
-    <color name="onSurface">#99000000</color>
+    <color name="onSurface">#CCFFFFFF</color>
     <color name="onError">#FFFFFF</color>
 
-    <color name="background_gradient_start_color">#1090cea1</color>
-    <color name="background_gradient_end_color">#2090cea1</color>
-
+    <color name="background_gradient_start_color">#000000</color>
+    <color name="background_gradient_middle_color">#203A43</color>
+    <color name="background_gradient_end_color">#434343</color>
 
 </resources>
