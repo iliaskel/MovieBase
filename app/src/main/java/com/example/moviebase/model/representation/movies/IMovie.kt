@@ -1,5 +1,7 @@
 package com.example.moviebase.model.representation.movies
 
+import android.view.View
+
 interface IMovie {
     val id: Int
     val title: String
@@ -7,5 +9,5 @@ interface IMovie {
     val releaseDate: String
     val voteAverage: Double
     val voteCount: Int
-    val clickAction: (() -> Unit)?
+    val clickAction: (view: View) -> Unit?
 }

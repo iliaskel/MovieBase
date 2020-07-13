@@ -1,5 +1,6 @@
 package com.example.moviebase.model.representation.movies
 
+import android.view.View
 import com.example.moviebase.model.database.entity.ExtraMovieType
 
 data class ExtraMovieEntryModel(
@@ -9,6 +10,6 @@ data class ExtraMovieEntryModel(
     override val releaseDate: String,
     override val voteAverage: Double,
     override val voteCount: Int,
-    override val clickAction: (() -> Unit)?,
+    override val clickAction: (view: View) -> Unit?,
     val extraMovieType: ExtraMovieType
 ) : IMovie
