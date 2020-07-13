@@ -1,11 +1,15 @@
 package com.example.moviebase.viewmodel
 
+import android.os.Bundle
+import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.findNavController
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
-import com.example.moviebase.NavGraphDirections
+import com.example.moviebase.R
 import com.example.moviebase.model.database.entity.MovieType
 import com.example.moviebase.model.database.entity.MoviesEntity
 import com.example.moviebase.model.repository.MoviesRepositoryImpl
@@ -91,11 +95,14 @@ class MainViewModelImpl(
 
     // region Private Functions
 
-    private fun getClickAction(id: Int): (() -> Unit)? {
+    private fun getClickAction(id: Int): (view: View) -> Unit? {
         return {
-            NavGraphDirections.actionGlobalDetailedMovieFragment(id.toString())
+            val bundle: Bundle = bundleOf(Pair("movieId", id.toString()))
+            it.findNavController()
+                .navigate(R.id.action_mainFragment_to_detailedMovieFragment, bundle)
         }
     }
+
 
     // endregion
 }

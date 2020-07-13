@@ -1,15 +1,17 @@
 package com.example.moviebase.viewmodel
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.moviebase.model.database.entity.DetailedMovieEntity
+import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
 import com.example.moviebase.model.database.entity.ExtraMoviesEntity
 import com.example.moviebase.model.repository.MoviesRepositoryImpl
 import com.example.moviebase.model.representation.movies.ExtraMovieEntryModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 
 class DetailedMovieViewModelImpl(
@@ -24,8 +26,10 @@ class DetailedMovieViewModelImpl(
         }
     }
 
-    override fun getDetailedMovie(): LiveData<DetailedMovieEntity> {
-        return repository.getDetailedMovie().asLiveData()
+    override fun getDetailedMovieRecyclerViewItems(): LiveData<List<RecyclerViewItem>> {
+        return repository.getDetailedMovie().mapNotNull {
+            listOf<RecyclerViewItem>()
+        }.asLiveData()
     }
 
     override fun getExtraMovies(): LiveData<List<ExtraMovieEntryModel>> {
@@ -63,9 +67,8 @@ class DetailedMovieViewModelImpl(
 
     // region Private Functions
 
-    private fun getClickAction(id: Int): (() -> Unit)? {
-
-        return null
+    private fun getClickAction(id: Int): (view: View) -> Unit? {
+        return {}
     }
 
     // endregion
