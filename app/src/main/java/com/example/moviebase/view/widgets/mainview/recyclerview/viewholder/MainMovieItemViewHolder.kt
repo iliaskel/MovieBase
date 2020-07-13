@@ -10,5 +10,8 @@ class MainMovieItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
     fun bindMovieViewHolder(movieEntryModel: MovieEntryModel) {
         Glide.with(itemView).load(movieEntryModel.posterPath).centerCrop()
             .into(itemView.popular_movie_tile_movie_image)
+        itemView.setOnClickListener {
+            movieEntryModel.clickAction.invoke(it)
+        }
     }
 }

@@ -20,6 +20,10 @@ class PopularMoviesItemViewHolder(itemView: View) : RecyclerView.ViewHolder(item
         itemView.popular_movie_tile_movie_title.apply {
             this.text = itemModel.title
         }
+
+        itemView.setOnClickListener {
+            itemModel.clickAction.invoke(it)
+        }
     }
 
     // endregion
