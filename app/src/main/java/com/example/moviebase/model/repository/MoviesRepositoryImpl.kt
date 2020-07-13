@@ -60,16 +60,16 @@ class MoviesRepositoryImpl(
     override suspend fun replaceDetailedMovie(id: String) {
         withContext(Dispatchers.IO) {
             val detailedMovie = tmdbApiService.getDetailedMovie(id)
-            val similarMovies =
-                detailedMovie.similar.results.toExtraMoviesEntities(ExtraMovieType.SIMILAR)
-            val recommendedMovies =
-                detailedMovie.recommendations.results.toExtraMoviesEntities(ExtraMovieType.RECOMMENDED)
+//            val similarMovies =
+//                detailedMovie.similar.results.toExtraMoviesEntities(ExtraMovieType.SIMILAR)
+//            val recommendedMovies =
+//                detailedMovie.recommendations.results.toExtraMoviesEntities(ExtraMovieType.RECOMMENDED)
 
             val detailedMovieToWrite = detailedMovie.toDetailedMovieEntity()
-            val extraMoviesToWrite = getExtraMoviesToWrite(listOf(similarMovies, recommendedMovies))
+//            val extraMoviesToWrite = getExtraMoviesToWrite(listOf(similarMovies, recommendedMovies))
 
             detailedMovieDao.replaceDetailedMovie(detailedMovieToWrite)
-            extraMoviesDao.replaceExtraMovies(extraMoviesToWrite)
+//            extraMoviesDao.replaceExtraMovies(extraMoviesToWrite)
         }
     }
 
