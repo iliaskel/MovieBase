@@ -1,7 +1,9 @@
 package com.example.moviebase.model.repository
 
 import com.example.moviebase.model.database.TMDBDB
-import com.example.moviebase.model.database.entity.*
+import com.example.moviebase.model.database.entity.DetailedMovieEntity
+import com.example.moviebase.model.database.entity.MovieType
+import com.example.moviebase.model.database.entity.MoviesEntity
 import com.example.moviebase.model.network.api.TMDBApiService
 import com.example.moviebase.model.network.detailedmovie.DetailedMovieResponse
 import com.example.moviebase.model.network.detailedmovie.Result
@@ -21,7 +23,6 @@ class MoviesRepositoryImpl(
     // region Fields
 
     private val moviesDao = tmdbDb.moviesDao()
-    private val extraMoviesDao = tmdbDb.extraMoviesDao()
     private val detailedMovieDao = tmdbDb.detailedMovieDao()
 
     // endregion
@@ -60,23 +61,23 @@ class MoviesRepositoryImpl(
     override suspend fun replaceDetailedMovie(id: String) {
         withContext(Dispatchers.IO) {
             val detailedMovie = tmdbApiService.getDetailedMovie(id)
-//            val similarMovies =
-//                detailedMovie.similar.results.toExtraMoviesEntities(ExtraMovieType.SIMILAR)
-//            val recommendedMovies =
-//                detailedMovie.recommendations.results.toExtraMoviesEntities(ExtraMovieType.RECOMMENDED)
+            val similarMovies =
+                detailedMovie.similar.results.toExtraMoviesEntities(MovieType.EXTRA_MOVIES_SIMILAR)
+            val recommendedMovies =
+                detailedMovie.recommendations.results.toExtraMoviesEntities(MovieType.EXTRA_MOVIES_RECOMMENDED)
 
             val detailedMovieToWrite = detailedMovie.toDetailedMovieEntity()
-//            val extraMoviesToWrite = getExtraMoviesToWrite(listOf(similarMovies, recommendedMovies))
+            val extraMoviesToWrite = getExtraMoviesToWrite(listOf(similarMovies, recommendedMovies))
 
             detailedMovieDao.replaceDetailedMovie(detailedMovieToWrite)
-//            extraMoviesDao.replaceExtraMovies(extraMoviesToWrite)
+            moviesDao.replaceExtraMovies(extraMoviesToWrite)
         }
     }
 
     override suspend fun deleteDetailedMovie() {
         withContext(Dispatchers.IO) {
             detailedMovieDao.deleteDetailedMovie()
-            extraMoviesDao.deleteExtraMovies()
+            moviesDao.deleteExtraMovies()
         }
     }
 
@@ -88,8 +89,8 @@ class MoviesRepositoryImpl(
         return detailedMovieDao.getDetailedMovie()
     }
 
-    override fun getExtraMovies(): Flow<List<ExtraMoviesEntity>> {
-        return extraMoviesDao.getExtraMovies()
+    override fun getExtraMovies(): Flow<List<MoviesEntity>> {
+        return moviesDao.getExtraMovies()
     }
 
     // endregion
@@ -108,18 +109,18 @@ class MoviesRepositoryImpl(
         )
     }
 
-    private fun List<Result>.toExtraMoviesEntities(extraMovieType: ExtraMovieType): List<ExtraMoviesEntity> {
-        val extraMoviesList = mutableListOf<ExtraMoviesEntity>()
+    private fun List<Result>.toExtraMoviesEntities(movieType: MovieType): List<MoviesEntity> {
+        val extraMoviesList = mutableListOf<MoviesEntity>()
         for (movie in this) {
             extraMoviesList.add(
-                ExtraMoviesEntity(
+                MoviesEntity(
                     id = movie.id,
                     title = movie.originalTitle,
                     posterPath = movie.posterPath.constructSmallPosterPath(),
                     voteAverage = movie.voteAverage,
                     voteCount = movie.voteCount,
                     releaseDate = movie.releaseDate,
-                    extraMovieType = extraMovieType
+                    type = movieType
                 )
             )
         }
@@ -181,8 +182,8 @@ class MoviesRepositoryImpl(
         return moviesToWrite
     }
 
-    private fun getExtraMoviesToWrite(listOfExtraMoviesList: List<List<ExtraMoviesEntity>>): List<ExtraMoviesEntity> {
-        val extraMoviesToWrite = mutableListOf<ExtraMoviesEntity>()
+    private fun getExtraMoviesToWrite(listOfExtraMoviesList: List<List<MoviesEntity>>): List<MoviesEntity> {
+        val extraMoviesToWrite = mutableListOf<MoviesEntity>()
         for (extraMovieType in listOfExtraMoviesList) {
             for (movie in extraMovieType) {
                 extraMoviesToWrite.add(movie)

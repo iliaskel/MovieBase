@@ -81,7 +81,7 @@ class TvShowsRepositoryImpl(
         return detailedMovieDao.getDetailedMovie()
     }
 
-    override fun getExtraMovies(): Flow<List<ExtraMoviesEntity>> {
+    override fun getExtraMovies(): Flow<List<MoviesEntity>> {
         TODO("Not yet implemented")
     }
 
@@ -99,8 +99,8 @@ class TvShowsRepositoryImpl(
         return moviesToWrite
     }
 
-    private fun getExtraMoviesToWrite(listOfExtraMoviesList: List<List<ExtraMoviesEntity>>): List<ExtraMoviesEntity> {
-        val extraMoviesToWrite = mutableListOf<ExtraMoviesEntity>()
+    private fun getExtraMoviesToWrite(listOfExtraMoviesList: List<List<MoviesEntity>>): List<MoviesEntity> {
+        val extraMoviesToWrite = mutableListOf<MoviesEntity>()
         for (extraMovieType in listOfExtraMoviesList) {
             for (movie in extraMovieType) {
                 extraMoviesToWrite.add(movie)

@@ -27,7 +27,7 @@ class DetailedMoviePosterTitleView @JvmOverloads constructor(
 
     // region Public Methods
 
-    fun updateTitle(title: String?) {
+    fun setTitle(title: String?) {
         if (!title.isNullOrEmpty()) {
             detailed_movie_view_title.visibility = View.VISIBLE
             detailed_movie_view_title.text = title
@@ -40,7 +40,7 @@ class DetailedMoviePosterTitleView @JvmOverloads constructor(
     fun setImages(posterPath: String) {
         Glide.with(this).load(posterPath).centerCrop().into(detailed_movie_poster_image)
         Glide.with(this).load(posterPath).apply(
-            RequestOptions.bitmapTransform(BlurTransformation(25, 3))
+            RequestOptions.bitmapTransform(BlurTransformation())
         ).centerCrop().into(
             detailed_movie_poster_image_background
         )

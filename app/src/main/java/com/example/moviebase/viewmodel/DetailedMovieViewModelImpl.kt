@@ -6,13 +6,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
-import com.example.moviebase.model.database.entity.ExtraMoviesEntity
+import com.example.moviebase.model.database.entity.DetailedMovieEntity
+import com.example.moviebase.model.database.entity.MovieType
+import com.example.moviebase.model.database.entity.MoviesEntity
 import com.example.moviebase.model.repository.MoviesRepositoryImpl
-import com.example.moviebase.model.representation.movies.ExtraMovieEntryModel
-import com.example.moviebase.view.widgets.controlsrecycler.items.DetailedMovieDescriptionRecyclerViewItem
-import com.example.moviebase.view.widgets.controlsrecycler.items.DetailedMoviePosterTitleRecyclerViewItem
+import com.example.moviebase.model.representation.MoviesRecyclerViewItemModel
+import com.example.moviebase.model.representation.movies.DetailedMovieModel
+import com.example.moviebase.model.representation.movies.MovieEntryModel
+import com.example.moviebase.view.widgets.controlsrecycler.items.MoviesRecyclerViewItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 
 class DetailedMovieViewModelImpl(
@@ -27,18 +31,20 @@ class DetailedMovieViewModelImpl(
         }
     }
 
-    override fun getDetailedMovieRecyclerViewItems(): LiveData<List<RecyclerViewItem>> {
-        return repository.getDetailedMovie().map {
-            val posterTitleItem = DetailedMoviePosterTitleRecyclerViewItem(it.title, it.posterPath)
-            val descriptionItem = DetailedMovieDescriptionRecyclerViewItem(it.overview)
-
-            return@map listOf(posterTitleItem, descriptionItem)
+    override fun getDetailedMovieModel(): LiveData<DetailedMovieModel> {
+        return repository.getDetailedMovie().mapNotNull {
+            it.toRepresentationModel()
         }.asLiveData()
     }
 
-    override fun getExtraMovies(): LiveData<List<ExtraMovieEntryModel>> {
+    override fun getExtraMovies(): LiveData<List<RecyclerViewItem>> {
         return repository.getExtraMovies().map { extraMoviesList ->
-            extraMoviesList.toRepresentationModelList()
+            val items = mutableListOf<RecyclerViewItem>()
+            extraMoviesList.toRepresentationModelList().apply {
+                addMoviesByExtraMovieType(MovieType.EXTRA_MOVIES_RECOMMENDED, items)
+                addMoviesByExtraMovieType(MovieType.EXTRA_MOVIES_SIMILAR, items)
+            }
+            return@map items
         }.asLiveData()
     }
 
@@ -46,23 +52,45 @@ class DetailedMovieViewModelImpl(
 
     // region Extension Functions
 
-    private fun List<ExtraMoviesEntity>.toRepresentationModelList(): List<ExtraMovieEntryModel> {
-        val extraMoviesList = mutableListOf<ExtraMovieEntryModel>()
-        for (movie in this) {
-            extraMoviesList.add(movie.toRepresentationModel())
+    private fun List<MoviesEntity>.toRepresentationModelList(): List<MovieEntryModel> {
+        return this.map {
+            return@map MovieEntryModel(
+                id = it.id,
+                posterPath = it.posterPath,
+                releaseDate = it.releaseDate,
+                voteAverage = it.voteAverage,
+                title = it.title,
+                voteCount = it.voteCount,
+                clickAction = getClickAction(),
+                movieType = it.type
+            )
         }
-        return extraMoviesList
     }
 
-    private fun ExtraMoviesEntity.toRepresentationModel(): ExtraMovieEntryModel {
-        return ExtraMovieEntryModel(
+    private fun List<MovieEntryModel>.addMoviesByExtraMovieType(
+        movieType: MovieType,
+        items: MutableList<RecyclerViewItem>
+    ) {
+        this.filter {
+            it.movieType == movieType
+        }.apply {
+            items.add(
+                MoviesRecyclerViewItem(
+                    MoviesRecyclerViewItemModel(movieType.title, this)
+                )
+            )
+        }
+    }
+
+    private fun DetailedMovieEntity.toRepresentationModel(): DetailedMovieModel {
+        return DetailedMovieModel(
             id = this.id,
             title = this.title,
+            description = this.overview,
             releaseDate = this.releaseDate,
             posterPath = this.posterPath,
             voteCount = this.voteCount,
             voteAverage = this.voteAverage,
-            extraMovieType = this.extraMovieType,
             clickAction = getClickAction(this.id)
         )
     }
@@ -71,7 +99,7 @@ class DetailedMovieViewModelImpl(
 
     // region Private Functions
 
-    private fun getClickAction(id: Int): (view: View) -> Unit? {
+    private fun getClickAction(id: Int = 0): (view: View) -> Unit? {
         return {}
     }
 

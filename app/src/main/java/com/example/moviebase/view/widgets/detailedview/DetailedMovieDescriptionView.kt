@@ -24,7 +24,7 @@ class DetailedMovieDescriptionView @JvmOverloads constructor(
 
     // region Public Methods
 
-    fun updateDescription(description: String?) {
+    fun setDescription(description: String?) {
         detailed_movie_description_text_view.text = description
     }
 

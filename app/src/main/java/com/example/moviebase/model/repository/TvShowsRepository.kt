@@ -1,6 +1,9 @@
 package com.example.moviebase.model.repository
 
-import com.example.moviebase.model.database.entity.*
+import com.example.moviebase.model.database.entity.DetailedMovieEntity
+import com.example.moviebase.model.database.entity.MoviesEntity
+import com.example.moviebase.model.database.entity.TvShowType
+import com.example.moviebase.model.database.entity.TvShowsEntity
 import kotlinx.coroutines.flow.Flow
 
 interface TvShowsRepository {
@@ -42,5 +45,5 @@ interface TvShowsRepository {
     /**
      * Returns similar and recommended movies ([ExtraMovieType]) for the [DetailedMovieEntity]
      */
-    fun getExtraMovies(): Flow<List<ExtraMoviesEntity>>
+    fun getExtraMovies(): Flow<List<MoviesEntity>>
 }

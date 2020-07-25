@@ -2,8 +2,14 @@ package com.example.moviebase.model.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.moviebase.model.database.dao.*
-import com.example.moviebase.model.database.entity.*
+import com.example.moviebase.model.database.dao.DetailedMovieDao
+import com.example.moviebase.model.database.dao.LatestTvShowDao
+import com.example.moviebase.model.database.dao.MoviesDao
+import com.example.moviebase.model.database.dao.TvShowsDao
+import com.example.moviebase.model.database.entity.DetailedMovieEntity
+import com.example.moviebase.model.database.entity.LatestTvShowEntity
+import com.example.moviebase.model.database.entity.MoviesEntity
+import com.example.moviebase.model.database.entity.TvShowsEntity
 
 /**
  * An abstract [RoomDatabase] representation and the corresponding DAOs
@@ -12,7 +18,6 @@ import com.example.moviebase.model.database.entity.*
     entities = [
         MoviesEntity::class,
         DetailedMovieEntity::class,
-        ExtraMoviesEntity::class,
         TvShowsEntity::class,
         LatestTvShowEntity::class],
     version = 1,
@@ -21,7 +26,6 @@ import com.example.moviebase.model.database.entity.*
 abstract class TMDBDB : RoomDatabase() {
     abstract fun moviesDao(): MoviesDao
     abstract fun detailedMovieDao(): DetailedMovieDao
-    abstract fun extraMoviesDao(): ExtraMoviesDao
     abstract fun tvShowsDao(): TvShowsDao
     abstract fun latestTvShowDao(): LatestTvShowDao
 }

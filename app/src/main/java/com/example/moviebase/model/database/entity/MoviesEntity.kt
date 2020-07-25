@@ -27,6 +27,8 @@ class MovieTypeConverters() {
             1 -> MovieType.NOW_PLAYING
             2 -> MovieType.TOP_RATED
             3 -> MovieType.UPCOMING
+            4 -> MovieType.EXTRA_MOVIES_RECOMMENDED
+            5 -> MovieType.EXTRA_MOVIES_SIMILAR
             else -> MovieType.UNKNOWN
         }
     }
@@ -47,5 +49,7 @@ enum class MovieType(val code: Int, val title: String) {
     NOW_PLAYING(1, "Now Playing"),
     TOP_RATED(2, "Top Rated"),
     UPCOMING(3, "Upcoming"),
+    EXTRA_MOVIES_RECOMMENDED(4, "Recommended"),
+    EXTRA_MOVIES_SIMILAR(5, "Similar"),
     UNKNOWN(-1, "")
 }

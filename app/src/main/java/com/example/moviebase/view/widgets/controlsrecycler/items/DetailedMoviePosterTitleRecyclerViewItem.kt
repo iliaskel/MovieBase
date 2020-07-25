@@ -5,9 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecycleViewType
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
-import com.bumptech.glide.Glide
 import com.example.moviebase.view.widgets.detailedview.DetailedMoviePosterTitleView
-import kotlinx.android.synthetic.main.view_detailed_movie_poster_title.view.*
 
 class DetailedMoviePosterTitleRecyclerViewItem(
     private val movieTitle: String,
@@ -32,11 +30,8 @@ class DetailedMoviePosterTitleRecyclerViewItem(
     override fun bindView(holder: RecyclerView.ViewHolder, defaultId: Int) {
         super.bindView(holder, defaultId)
         if (holder is DetailedMoviePosterTitleViewHolder) {
-            holder.itemView.detailed_movie_view_title.text = movieTitle
-            Glide.with(holder.itemView).load(moviePosterPath).centerCrop()
-                .into(holder.itemView.detailed_movie_poster_image)
-            Glide.with(holder.itemView).load(moviePosterPath).centerCrop()
-                .into(holder.itemView.detailed_movie_poster_image_background)
+            holder.detailedMovieViewPosterTitleView.setTitle(movieTitle)
+            holder.detailedMovieViewPosterTitleView.setImages(moviePosterPath)
         }
     }
 
@@ -52,6 +47,6 @@ class DetailedMoviePosterTitleRecyclerViewItem(
         } else false
     }
 
-    class DetailedMoviePosterTitleViewHolder(detailedMovieViewPosterTitleView: DetailedMoviePosterTitleView) :
+    class DetailedMoviePosterTitleViewHolder(val detailedMovieViewPosterTitleView: DetailedMoviePosterTitleView) :
         RecyclerView.ViewHolder(detailedMovieViewPosterTitleView)
 }

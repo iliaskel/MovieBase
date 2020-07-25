@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/top_bottom_gradient">
 
-    <com.example.moviebase.view.widgets.controlsrecycler.ControlsRecyclerView
-        android:id="@+id/fragment_detailed_controls_recycler_view"
+    <com.example.moviebase.view.widgets.detailedview.DetailedMoviePosterTitleView
+        android:id="@+id/detailed_fragment_poster_title_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.moviebase.view.widgets.detailedview.DetailedMovieDescriptionView
+        android:id="@+id/detailed_fragment_description_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_xl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailed_fragment_poster_title_view" />
+
+    <com.example.moviebase.view.widgets.controlsrecycler.ControlsRecyclerView
+        android:id="@+id/detailed_fragment_extra_movies_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_l"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailed_fragment_description_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

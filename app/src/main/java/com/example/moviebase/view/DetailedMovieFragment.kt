@@ -9,9 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.example.moviebase.R
 import com.example.moviebase.view.widgets.controlsrecycler.ControlsRecyclerAdapter
-import com.example.moviebase.view.widgets.controlsrecycler.itemdecorations.DetailedMovieViewItemDecoration
-import com.example.moviebase.view.widgets.controlsrecycler.items.DetailedMovieDescriptionRecyclerViewItem
-import com.example.moviebase.view.widgets.controlsrecycler.items.DetailedMoviePosterTitleRecyclerViewItem
+import com.example.moviebase.view.widgets.controlsrecycler.itemdecorations.MainViewItemDecoration
+import com.example.moviebase.view.widgets.controlsrecycler.items.MoviesRecyclerViewItem
 import com.example.moviebase.viewmodel.DetailedMovieViewModel
 import com.example.moviebase.viewmodel.DetailedMovieViewModelImpl
 import kotlinx.android.synthetic.main.fragment_detailed_movie.*
@@ -26,8 +25,7 @@ class DetailedMovieFragment : Fragment() {
     private val detailedMovieViewModel: DetailedMovieViewModel by viewModel<DetailedMovieViewModelImpl>()
     private val controlsRecyclerAdapter =
         ControlsRecyclerAdapter(
-            DetailedMoviePosterTitleRecyclerViewItem.viewType,
-            DetailedMovieDescriptionRecyclerViewItem.viewType
+            MoviesRecyclerViewItem.viewType
         )
 
     // endregion
@@ -44,13 +42,11 @@ class DetailedMovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fragment_detailed_movie_recycler_view.apply {
+        detailed_fragment_extra_movies_recycler_view.apply {
             adapter = controlsRecyclerAdapter
             addItemDecoration(
-                DetailedMovieViewItemDecoration(
-                    resources.getDimension(R.dimen.space_s).toInt(),
-                    resources.getDimension(R.dimen.space_m).toInt(),
-                    resources.getDimension(R.dimen.space_l).toInt()
+                MainViewItemDecoration(
+                    resources.getDimension(R.dimen.space_s).toInt()
                 )
             )
         }
@@ -67,10 +63,15 @@ class DetailedMovieFragment : Fragment() {
     }
 
     private fun initBindings() {
-        detailedMovieViewModel.getDetailedMovieRecyclerViewItems()
+        detailedMovieViewModel.getDetailedMovieModel()
             .observe(viewLifecycleOwner, Observer {
-                controlsRecyclerAdapter.submitList(it)
+                detailed_fragment_poster_title_view.setTitle(it.title)
+                detailed_fragment_poster_title_view.setImages(it.posterPath)
+                detailed_fragment_description_view.setDescription(it.description)
             })
+        detailedMovieViewModel.getExtraMovies().observe(viewLifecycleOwner, Observer {
+            controlsRecyclerAdapter.submitList(it)
+        })
     }
 
     // endregion
