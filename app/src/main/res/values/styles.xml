@@ -18,22 +18,32 @@
         <item name="android:colorPrimaryDark">@color/primaryDark</item>
     </style>
 
-    <style name="movie_simple_tile" parent="@style/Widget.MaterialComponents.CardView">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners</item>
+    <style name="style_card_view_rounded_corners" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/custom_round_corners</item>
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
-        <item name="elevation">6dp</item>
-        <item name="android:stateListAnimator">@animator/card_view_press_down_animator</item>
         <item name="rippleColor">@color/primaryLight</item>
     </style>
 
-    <style name="ShapeAppearanceOverlay_card_custom_corners" parent="Theme.MaterialComponents.DayNight">
+    <style name="style_card_view_rounded_bottom_corners" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/custom_bottom_round_corners</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="rippleColor">@color/primaryLight</item>
+    </style>
+
+    <style name="custom_round_corners" parent="Theme.MaterialComponents.DayNight">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">40dp</item>
         <item name="cornerSizeTopLeft">40dp</item>
         <item name="cornerSizeBottomRight">40dp</item>
         <item name="cornerSizeBottomLeft">40dp</item>
-        <item name="cardElevation">6dp</item>
+    </style>
+
+    <style name="custom_bottom_round_corners" parent="Theme.MaterialComponents.DayNight">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomRight">40dp</item>
+        <item name="cornerSizeBottomLeft">40dp</item>
     </style>
 
     <style name="movie_header" parent="@style/Widget.MaterialComponents.TextView">
