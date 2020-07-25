@@ -1,11 +1,11 @@
-package com.example.moviebase.view.widgets.controlsrecycler
+package com.example.moviebase.view.widgets.controlsrecycler.itemdecorations
 
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviebase.view.widgets.controlsrecycler.items.MoviesRecyclerViewItem
 
-class ControlsRecyclerItemDecoration(private val outerItemOffset: Int) :
+class MainViewItemDecoration(private val outerItemOffset: Int) :
     RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(

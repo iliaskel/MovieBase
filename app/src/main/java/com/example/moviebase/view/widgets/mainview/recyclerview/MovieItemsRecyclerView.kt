@@ -32,6 +32,7 @@ class MovieItemsRecyclerView @JvmOverloads constructor(
                 resources.getDimension(R.dimen.space_m).toInt()
             )
         addItemDecoration(mainMovieEntryItemDecoration)
+        clipChildren = false
         overScrollMode = View.OVER_SCROLL_NEVER
     }
 

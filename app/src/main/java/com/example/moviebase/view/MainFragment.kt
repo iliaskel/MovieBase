@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import com.example.moviebase.R
 import com.example.moviebase.view.widgets.controlsrecycler.ControlsRecyclerAdapter
-import com.example.moviebase.view.widgets.controlsrecycler.ControlsRecyclerItemDecoration
+import com.example.moviebase.view.widgets.controlsrecycler.itemdecorations.MainViewItemDecoration
 import com.example.moviebase.view.widgets.controlsrecycler.items.MoviesRecyclerViewItem
 import com.example.moviebase.viewmodel.MainViewModel
 import com.example.moviebase.viewmodel.MainViewModelImpl
@@ -50,7 +50,7 @@ class MainFragment : Fragment() {
         main_fragment_controls_recycler_view.apply {
             adapter = controlsRecyclerAdapter
             addItemDecoration(
-                ControlsRecyclerItemDecoration(
+                MainViewItemDecoration(
                     resources.getDimension(R.dimen.space_s).toInt()
                 )
             )
@@ -71,25 +71,5 @@ class MainFragment : Fragment() {
         mainViewModel.getMoviesRecyclerItems().observe(viewLifecycleOwner, Observer {
             controlsRecyclerAdapter.submitList(it)
         })
-    }
-
-    // endregion
-
-    private inline fun <reified VM : ViewModel> Fragment.sharedGraphViewModel(
-        @IdRes navGraphId: Int,
-        qualifier: Qualifier? = null,
-        noinline parameters: ParametersDefinition? = null
-    ) = lazy {
-        val store = findNavController().getViewModelStoreOwner(navGraphId).viewModelStore
-        getKoin().getViewModel(
-            ViewModelParameter(
-                VM::class,
-                qualifier,
-                parameters,
-                null,
-                store,
-                null
-            )
-        )
     }
 }

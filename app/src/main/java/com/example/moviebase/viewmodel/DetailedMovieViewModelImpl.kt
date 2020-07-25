@@ -9,9 +9,10 @@ import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
 import com.example.moviebase.model.database.entity.ExtraMoviesEntity
 import com.example.moviebase.model.repository.MoviesRepositoryImpl
 import com.example.moviebase.model.representation.movies.ExtraMovieEntryModel
+import com.example.moviebase.view.widgets.controlsrecycler.items.DetailedMovieDescriptionRecyclerViewItem
+import com.example.moviebase.view.widgets.controlsrecycler.items.DetailedMoviePosterTitleRecyclerViewItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 
 class DetailedMovieViewModelImpl(
@@ -27,8 +28,11 @@ class DetailedMovieViewModelImpl(
     }
 
     override fun getDetailedMovieRecyclerViewItems(): LiveData<List<RecyclerViewItem>> {
-        return repository.getDetailedMovie().mapNotNull {
-            listOf<RecyclerViewItem>()
+        return repository.getDetailedMovie().map {
+            val posterTitleItem = DetailedMoviePosterTitleRecyclerViewItem(it.title, it.posterPath)
+            val descriptionItem = DetailedMovieDescriptionRecyclerViewItem(it.overview)
+
+            return@map listOf(posterTitleItem, descriptionItem)
         }.asLiveData()
     }
 
