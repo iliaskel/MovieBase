@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@drawable/top_bottom_gradient"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/space_l"/>
+
+    <TextView
+        android:id="@+id/detailed_movie_description_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_m"
+        android:textColor="@color/onSurface"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/detailed_movie_description_card_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/detailed_movie_description_card_view"
+        tools:text="Description" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/detailed_movie_description_card_view"
+        style="@style/style_card_view_rounded_corners"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        android:clickable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline">
+
+        <TextView
+            android:id="@+id/detailed_movie_description_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_m"
+            android:textSize="15sp"
+            android:textColor="@color/onSurface"
+            tools:text="This is the description of the movie which will explain a few things for the general plot" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</merge>
