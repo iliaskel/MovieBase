@@ -9,14 +9,14 @@ import androidx.room.TypeConverters
 @TypeConverters(TvShowsTypeConverters::class)
 data class TvShowsEntity(
     @PrimaryKey(autoGenerate = false)
-    val id: Int,
-    val title: String,
-    val posterPath: String,
-    val releaseDate: String,
-    val voteAverage: Double,
-    val voteCount: Int,
+    override val id: Int,
+    override val title: String,
+    override val posterPath: String,
+    override val releaseDate: String,
+    override val voteAverage: Double,
+    override val voteCount: Int,
     val type: TvShowType
-) : DetailedEntity
+) : IMovieEntity
 
 class TvShowsTypeConverters {
     @TypeConverter

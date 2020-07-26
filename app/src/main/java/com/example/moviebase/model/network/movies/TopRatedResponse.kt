@@ -11,4 +11,4 @@ data class TopRatedResponse(
     @SerializedName("total_results")
     override val totalResults: Int?,
     val type: MovieType = MovieType.TOP_RATED
-) : MoviesResponse
+) : IMoviesResponse

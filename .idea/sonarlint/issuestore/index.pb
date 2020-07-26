@@ -60,8 +60,6 @@ e
 5app/src/main/java/com/example/moviebase/di/modules.kt,2/8/2879abfe4c171c30d8b7b961da56e91798678a82
 „
 Tapp/src/main/java/com/example/moviebase/model/database/entity/DetailedMovieEntity.kt,4/0/401da04ee25b9ddaef18e577db9e8500ce1c52c0
-‚
-Rapp/src/main/java/com/example/moviebase/model/database/entity/ExtraMoviesEntity.kt,6/4/6471831a0659f1499e059fefb022d2afa0ad545c
 r
 Bapp/src/main/java/com/example/moviebase/viewmodel/MainViewModel.kt,c/0/c03fa28bc6bcd1fdd847408e82122756b9f6f8bf
 w
@@ -74,8 +72,6 @@ Fapp/src/main/java/com/example/moviebase/viewmodel/MainViewModelImpl.kt,2/8/287
 Mapp/src/main/java/com/example/moviebase/model/database/entity/MoviesEntity.kt,d/c/dce15da2e85bddb91c0fc6dec45ac4fa8b5c1820
 ~
 Napp/src/main/java/com/example/moviebase/model/database/dao/DetailedMovieDao.kt,a/7/a729daa1da620842784a61677c7eb213f978817a
-|
-Lapp/src/main/java/com/example/moviebase/model/database/dao/ExtraMoviesDao.kt,c/7/c7731cbdc86774fe6c765993054b26e3d76012f1
 {
 Kapp/src/main/java/com/example/moviebase/viewmodel/DetailedMovieViewModel.kt,8/7/874fdb05dc73efaa53e2c697abc20510f47d27ff
 
@@ -130,8 +126,6 @@ eapp/src/main/java/com/example/moviebase/view/widgets/controlsrecycler/ControlsR
 Yapp/src/main/java/com/example/moviebase/view/widgets/controlsrecycler/RecyclerViewItem.kt,3/b/3bbaf64842d7a19c1db9e88e4830750bb006b986
 W
 'app/src/main/res/drawable/ic_search.xml,f/1/f147bc5a18c943e2202ab4271561325af3e75237
-‹
-[app/src/main/java/com/example/moviebase/model/representation/movies/ExtraMovieEntryModel.kt,9/2/92516f0660e1de99755961175962847bfb8241f1
 }
 Mapp/src/main/java/com/example/moviebase/model/representation/movies/IMovie.kt,9/8/9887a9ee2043fcff050f740d87063e218cef8a68
 †

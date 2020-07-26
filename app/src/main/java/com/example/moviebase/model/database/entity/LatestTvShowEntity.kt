@@ -6,11 +6,11 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "latest_tv_show_table")
 data class LatestTvShowEntity(
     @PrimaryKey(autoGenerate = false)
-    val id: Int,
-    val title: String,
+    override val id: Int,
+    override val title: String,
     val overview: String,
-    val posterPath: String,
-    val releaseDate: String,
-    val voteAverage: Double,
-    val voteCount: Int
-) : DetailedEntity
+    override val posterPath: String,
+    override val releaseDate: String,
+    override val voteAverage: Double,
+    override val voteCount: Int
+) : IMovieEntity

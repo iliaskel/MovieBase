@@ -11,4 +11,4 @@ data class PlayingNowResponse(
     @SerializedName("total_results")
     override val totalResults: Int?,
     val type: MovieType = MovieType.NOW_PLAYING
-) : MoviesResponse
+) : IMoviesResponse

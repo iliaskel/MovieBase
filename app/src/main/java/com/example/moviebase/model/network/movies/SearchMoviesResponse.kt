@@ -9,4 +9,4 @@ data class SearchMoviesResponse(
     override val totalPages: Int?,
     @SerializedName("total_results")
     override val totalResults: Int?
-) : MoviesResponse
+) : IMoviesResponse
