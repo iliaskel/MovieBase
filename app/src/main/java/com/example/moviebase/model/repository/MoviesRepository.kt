@@ -13,7 +13,7 @@ interface MoviesRepository {
      * After fetching the data, they are transformed
      * in a way to represent Objects of the database layer and then are stored.
      */
-    suspend fun replaceMovies()
+    suspend fun updateMovies()
 
     /**
      * Fetches a movie with all the details needed and replaces the already
@@ -24,7 +24,7 @@ interface MoviesRepository {
      *
      * @param id an [Int] representing the movie's to be fetched id
      */
-    suspend fun replaceDetailedMovie(id: String)
+    suspend fun updateDetailedMovie(id: String)
 
     /**
      * Deletes the [DetailedMovieEntity] stored in the database together with

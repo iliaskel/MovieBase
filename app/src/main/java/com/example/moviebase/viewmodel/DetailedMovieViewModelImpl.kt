@@ -31,7 +31,7 @@ class DetailedMovieViewModelImpl(
 
     override fun fetchDetailedMovie(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.replaceDetailedMovie(id)
+            repository.updateDetailedMovie(id)
         }
     }
 

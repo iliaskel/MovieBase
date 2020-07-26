@@ -44,7 +44,7 @@ class MovieTypeConverters() {
     }
 }
 
-enum class MovieType(val code: Int, val title: String) {
+enum class  MovieType(val code: Int, val title: String) {
     POPULAR(0, "Popular"),
     NOW_PLAYING(1, "Now Playing"),
     TOP_RATED(2, "Top Rated"),

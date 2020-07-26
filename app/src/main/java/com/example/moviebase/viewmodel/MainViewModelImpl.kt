@@ -28,7 +28,7 @@ class MainViewModelImpl(
 
     override fun fetchMovies() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.replaceMovies()
+            repository.updateMovies()
         }
     }
 
