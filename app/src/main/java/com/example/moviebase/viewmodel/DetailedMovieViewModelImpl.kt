@@ -1,11 +1,15 @@
 package com.example.moviebase.viewmodel
 
+import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.findNavController
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
+import com.example.moviebase.R
 import com.example.moviebase.model.database.entity.DetailedMovieEntity
 import com.example.moviebase.model.database.entity.MovieType
 import com.example.moviebase.model.database.entity.MoviesEntity
@@ -48,6 +52,12 @@ class DetailedMovieViewModelImpl(
         }.asLiveData()
     }
 
+    override fun deleteDetailedMovie() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteDetailedMovie()
+        }
+    }
+
     // endregion
 
     // region Extension Functions
@@ -61,7 +71,7 @@ class DetailedMovieViewModelImpl(
                 voteAverage = it.voteAverage,
                 title = it.title,
                 voteCount = it.voteCount,
-                clickAction = getClickAction(),
+                clickAction = getClickAction(it.id),
                 movieType = it.type
             )
         }
@@ -100,7 +110,11 @@ class DetailedMovieViewModelImpl(
     // region Private Functions
 
     private fun getClickAction(id: Int = 0): (view: View) -> Unit? {
-        return {}
+        return {
+            val bundle: Bundle = bundleOf(Pair("movieId", id.toString()))
+            it.findNavController()
+                .navigate(R.id.action_detailedMovieFragment_self, bundle)
+        }
     }
 
     // endregion

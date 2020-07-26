@@ -21,4 +21,9 @@ interface DetailedMovieViewModel {
      * Returns similar and recommended movies ([ExtraMovieType]) for the [DetailedMovieEntity] as [LiveData]
      */
     fun getExtraMovies(): LiveData<List<RecyclerViewItem>>
+
+    /**
+     * Deletes the stored [DetailedMovieEntity] and all the similar and recommended movies related to it.
+     */
+    fun deleteDetailedMovie()
 }
