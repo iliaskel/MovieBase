@@ -54,6 +54,11 @@ class DetailedMovieFragment : Fragment() {
         initBindings()
     }
 
+    override fun onStop() {
+        super.onStop()
+        detailedMovieViewModel.deleteDetailedMovie()
+    }
+
     // endregion
 
     // region Private methods
