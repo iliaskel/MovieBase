@@ -10,8 +10,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
 import com.example.moviebase.R
-import com.example.moviebase.model.database.entity.MovieType
-import com.example.moviebase.model.database.entity.MoviesEntity
+import com.example.moviebase.model.database.entity.simplemovie.MovieType
+import com.example.moviebase.model.database.entity.simplemovie.MoviesEntity
 import com.example.moviebase.model.repository.MoviesRepositoryImpl
 import com.example.moviebase.model.representation.MoviesRecyclerViewItemModel
 import com.example.moviebase.model.representation.movies.MovieEntryModel

@@ -10,9 +10,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
 import com.example.moviebase.R
-import com.example.moviebase.model.database.entity.DetailedMovieEntity
-import com.example.moviebase.model.database.entity.MovieType
-import com.example.moviebase.model.database.entity.MoviesEntity
+import com.example.moviebase.model.database.entity.detailedmovie.DetailedMovieEntity
+import com.example.moviebase.model.database.entity.simplemovie.MovieType
+import com.example.moviebase.model.database.entity.simplemovie.MoviesEntity
 import com.example.moviebase.model.repository.MoviesRepositoryImpl
 import com.example.moviebase.model.representation.MoviesRecyclerViewItemModel
 import com.example.moviebase.model.representation.movies.DetailedMovieModel
@@ -35,7 +35,7 @@ class DetailedMovieViewModelImpl(
         }
     }
 
-    override fun getDetailedMovieModel(): LiveData<DetailedMovieModel> {
+    override fun getDetailedMovieModel(): LiveData<DetailedMovieModel?> {
         return repository.getDetailedMovie().mapNotNull {
             it.toRepresentationModel()
         }.asLiveData()
@@ -92,7 +92,8 @@ class DetailedMovieViewModelImpl(
         }
     }
 
-    private fun DetailedMovieEntity.toRepresentationModel(): DetailedMovieModel {
+    private fun DetailedMovieEntity?.toRepresentationModel(): DetailedMovieModel? {
+        if (this == null) return null
         return DetailedMovieModel(
             id = this.id,
             title = this.title,

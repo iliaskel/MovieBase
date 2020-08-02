@@ -2,7 +2,7 @@ package com.example.moviebase.viewmodel
 
 import androidx.lifecycle.LiveData
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
-import com.example.moviebase.model.database.entity.MovieType
+import com.example.moviebase.model.database.entity.simplemovie.MovieType
 import com.example.moviebase.model.repository.MoviesRepository
 import com.example.moviebase.model.representation.movies.MovieEntryModel
 

@@ -70,9 +70,11 @@ class DetailedMovieFragment : Fragment() {
     private fun initBindings() {
         detailedMovieViewModel.getDetailedMovieModel()
             .observe(viewLifecycleOwner, Observer {
-                detailed_fragment_poster_title_view.setTitle(it.title)
-                detailed_fragment_poster_title_view.setImages(it.posterPath)
-                detailed_fragment_description_view.setDescription(it.description)
+                if (it != null) {
+                    detailed_fragment_poster_title_view.setTitle(it.title)
+                    detailed_fragment_poster_title_view.setImages(it.posterPath)
+                    detailed_fragment_description_view.setDescription(it.description)
+                }
             })
         detailedMovieViewModel.getExtraMovies().observe(viewLifecycleOwner, Observer {
             controlsRecyclerAdapter.submitList(it)

@@ -9,7 +9,7 @@ import android.view.ViewOutlineProvider
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviebase.R
-import com.example.moviebase.model.database.entity.MovieType
+import com.example.moviebase.model.database.entity.simplemovie.MovieType
 import com.example.moviebase.model.representation.movies.MovieEntryModel
 import com.example.moviebase.view.widgets.mainview.recyclerview.viewholder.MainMovieItemViewHolder
 import com.example.moviebase.view.widgets.mainview.recyclerview.viewholder.PopularMoviesItemViewHolder
