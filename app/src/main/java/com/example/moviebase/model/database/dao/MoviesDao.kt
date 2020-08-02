@@ -1,7 +1,7 @@
 package com.example.moviebase.model.database.dao
 
 import androidx.room.*
-import com.example.moviebase.model.database.entity.MoviesEntity
+import com.example.moviebase.model.database.entity.simplemovie.MoviesEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

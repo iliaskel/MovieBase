@@ -1,15 +1,15 @@
 package com.example.moviebase.model.network.api
 
-import com.example.moviebase.model.network.detailedmovie.DetailedMovieResponse
-import com.example.moviebase.model.network.detailedtvshow.DetailedTvShowResponse
-import com.example.moviebase.model.network.movies.PlayingNowResponse
-import com.example.moviebase.model.network.movies.PopularResponse
-import com.example.moviebase.model.network.movies.TopRatedResponse
-import com.example.moviebase.model.network.movies.UpcomingResponse
-import com.example.moviebase.model.network.tvshows.AiringNowTvShowsResponse
-import com.example.moviebase.model.network.tvshows.PopularTvShowsResponse
-import com.example.moviebase.model.network.tvshows.TopRatedTvShowsResponse
-import com.example.moviebase.model.network.tvshows.UpcomingTvShowsResponse
+import com.example.moviebase.model.network.detailedmovie.movies.DetailedMovieResponse
+import com.example.moviebase.model.network.detailedmovie.tvshows.DetailedTvShowResponse
+import com.example.moviebase.model.network.simplemovie.movies.PlayingNowResponse
+import com.example.moviebase.model.network.simplemovie.movies.PopularResponse
+import com.example.moviebase.model.network.simplemovie.movies.TopRatedResponse
+import com.example.moviebase.model.network.simplemovie.movies.UpcomingResponse
+import com.example.moviebase.model.network.simplemovie.tvshows.AiringNowTvShowsResponse
+import com.example.moviebase.model.network.simplemovie.tvshows.PopularTvShowsResponse
+import com.example.moviebase.model.network.simplemovie.tvshows.TopRatedTvShowsResponse
+import com.example.moviebase.model.network.simplemovie.tvshows.UpcomingTvShowsResponse
 import com.example.moviebase.utils.API_KEY_QUERY_PARAMETER
 import com.example.moviebase.utils.APPEND_TO_RESPONSE_QUERY_PARAMETER
 import com.example.moviebase.utils.PAGE_QUERY_PARAMETER

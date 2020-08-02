@@ -6,10 +6,10 @@ import com.example.moviebase.model.database.dao.DetailedMovieDao
 import com.example.moviebase.model.database.dao.LatestTvShowDao
 import com.example.moviebase.model.database.dao.MoviesDao
 import com.example.moviebase.model.database.dao.TvShowsDao
-import com.example.moviebase.model.database.entity.DetailedMovieEntity
-import com.example.moviebase.model.database.entity.LatestTvShowEntity
-import com.example.moviebase.model.database.entity.MoviesEntity
-import com.example.moviebase.model.database.entity.TvShowsEntity
+import com.example.moviebase.model.database.entity.detailedmovie.DetailedMovieEntity
+import com.example.moviebase.model.database.entity.detailedmovie.LatestTvShowEntity
+import com.example.moviebase.model.database.entity.simplemovie.MoviesEntity
+import com.example.moviebase.model.database.entity.simplemovie.TvShowsEntity
 
 /**
  * An abstract [RoomDatabase] representation and the corresponding DAOs

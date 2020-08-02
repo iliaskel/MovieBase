@@ -1,7 +1,7 @@
 package com.example.moviebase.model.representation.movies
 
 import android.view.View
-import com.example.moviebase.model.database.entity.MovieType
+import com.example.moviebase.model.database.entity.simplemovie.MovieType
 
 data class MovieEntryModel(
     override val id: Int,
