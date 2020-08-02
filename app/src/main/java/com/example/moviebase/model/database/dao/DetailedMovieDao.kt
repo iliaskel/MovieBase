@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface DetailedMovieDao {
 
     @Query("SELECT * from detailed_movies_table LIMIT 1")
-    fun getDetailedMovie(): Flow<DetailedMovieEntity>
+    fun getDetailedMovie(): Flow<DetailedMovieEntity?>
 
     @Transaction
     suspend fun replaceDetailedMovie(detailedMovie: DetailedMovieEntity?) {

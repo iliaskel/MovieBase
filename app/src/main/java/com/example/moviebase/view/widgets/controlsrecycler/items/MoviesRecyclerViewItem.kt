@@ -42,7 +42,18 @@ class MoviesRecyclerViewItem(
 
     override fun isContentTheSame(itemToCompare: RecyclerViewItem): Boolean {
         return if (itemToCompare is MoviesRecyclerViewItem) {
-            moviesRecyclerViewItemModel == itemToCompare.moviesRecyclerViewItemModel
+            moviesRecyclerViewItemModel.moviesEntriesList.forEachIndexed { index, movie ->
+                if (index >= itemToCompare.moviesRecyclerViewItemModel.moviesEntriesList.size) return false
+                if (movie.id == itemToCompare.moviesRecyclerViewItemModel.moviesEntriesList[index].id &&
+                    movie.posterPath == itemToCompare.moviesRecyclerViewItemModel.moviesEntriesList[index].posterPath &&
+                    movie.movieType == itemToCompare.moviesRecyclerViewItemModel.moviesEntriesList[index].movieType &&
+                    movie.title == itemToCompare.moviesRecyclerViewItemModel.moviesEntriesList[index].title &&
+                    movie.releaseDate == itemToCompare.moviesRecyclerViewItemModel.moviesEntriesList[index].releaseDate &&
+                    movie.voteAverage == itemToCompare.moviesRecyclerViewItemModel.moviesEntriesList[index].voteAverage &&
+                    movie.voteCount == itemToCompare.moviesRecyclerViewItemModel.moviesEntriesList[index].voteCount
+                ) return true
+            }
+            return false
         } else false
     }
 

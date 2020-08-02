@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.moviebase.R
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.view_detailed_movie_poster_title.view.*
@@ -38,12 +37,12 @@ class DetailedMoviePosterTitleView @JvmOverloads constructor(
     }
 
     fun setImages(posterPath: String) {
-        Glide.with(this).load(posterPath).centerCrop().into(detailed_movie_poster_image)
-        Glide.with(this).load(posterPath).apply(
-            RequestOptions.bitmapTransform(BlurTransformation())
-        ).centerCrop().into(
-            detailed_movie_poster_image_background
-        )
+        Glide.with(detailed_movie_poster_image).load(posterPath).centerCrop()
+            .into(detailed_movie_poster_image)
+        Glide.with(detailed_movie_poster_image_background).load(posterPath)
+            .transform(BlurTransformation()).centerCrop().into(
+                detailed_movie_poster_image_background
+            )
     }
 
     // endregion

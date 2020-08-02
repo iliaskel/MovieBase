@@ -37,7 +37,7 @@ class DetailedMovieViewModelImpl(
 
     override fun getDetailedMovieModel(): LiveData<DetailedMovieModel> {
         return repository.getDetailedMovie().mapNotNull {
-            it.toRepresentationModel()
+            it?.toRepresentationModel()
         }.asLiveData()
     }
 
@@ -92,7 +92,8 @@ class DetailedMovieViewModelImpl(
         }
     }
 
-    private fun DetailedMovieEntity.toRepresentationModel(): DetailedMovieModel {
+    private fun DetailedMovieEntity.toRepresentationModel(): DetailedMovieModel? {
+        if (this.id == null || this.title == null || this.overview == null || this.releaseDate == null || this.posterPath == null || this.voteAverage == null) return null
         return DetailedMovieModel(
             id = this.id,
             title = this.title,
