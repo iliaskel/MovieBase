@@ -42,6 +42,7 @@ class DetailedMovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requestDetailedMovie()
         detailed_fragment_extra_movies_recycler_view.apply {
             adapter = controlsRecyclerAdapter
             addItemDecoration(
@@ -50,7 +51,6 @@ class DetailedMovieFragment : Fragment() {
                 )
             )
         }
-        requestDetailedMovie()
         initBindings()
     }
 

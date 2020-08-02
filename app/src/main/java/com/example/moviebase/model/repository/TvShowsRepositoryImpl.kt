@@ -77,7 +77,7 @@ class TvShowsRepositoryImpl(
         return tvShowsDao.getTvShows()
     }
 
-    override fun getDetailedMovie(): Flow<DetailedMovieEntity> {
+    override fun getDetailedMovie(): Flow<DetailedMovieEntity?> {
         return detailedMovieDao.getDetailedMovie()
     }
 

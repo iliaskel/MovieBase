@@ -23,7 +23,7 @@ class ControlsRecyclerView @JvmOverloads constructor(
 
         itemAnimator = DefaultItemAnimator().apply {
             supportsChangeAnimations = true
-            addDuration = 1500
+            addDuration = 500
             animate()
         }
         overScrollMode = View.OVER_SCROLL_NEVER

@@ -10,7 +10,11 @@
         android:label="MainFragment">
         <action
             android:id="@+id/action_mainFragment_to_detailedMovieFragment"
-            app:destination="@id/detailedMovieFragment" />
+            app:destination="@id/detailedMovieFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/detailedMovieFragment"
@@ -21,6 +25,10 @@
             app:argType="string" />
         <action
             android:id="@+id/action_detailedMovieFragment_self"
-            app:destination="@id/detailedMovieFragment" />
+            app:destination="@id/detailedMovieFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 </navigation>

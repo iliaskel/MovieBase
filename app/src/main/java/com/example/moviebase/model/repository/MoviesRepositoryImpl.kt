@@ -9,7 +9,6 @@ import com.example.moviebase.model.network.detailedmovie.DetailedMovieResponse
 import com.example.moviebase.model.network.detailedmovie.Result
 import com.example.moviebase.model.network.movies.IMoviesResponse
 import com.example.moviebase.model.network.movies.MoviesResult
-import com.example.moviebase.model.utils.ObjectUtils
 import com.example.moviebase.utils.IMAGES_BASE_URL
 import com.example.moviebase.utils.IMAGE_BIG_SIZE
 import com.example.moviebase.utils.IMAGE_SMALL_SIZE
@@ -18,8 +17,7 @@ import kotlinx.coroutines.flow.Flow
 
 class MoviesRepositoryImpl(
     tmdbDb: TMDBDB,
-    private val tmdbApiService: TMDBApiService,
-    private val objectUtils: ObjectUtils = ObjectUtils()
+    private val tmdbApiService: TMDBApiService
 ) : MoviesRepository {
 
     // region Fields
@@ -89,7 +87,7 @@ class MoviesRepositoryImpl(
         return moviesDao.getMovies()
     }
 
-    override fun getDetailedMovie(): Flow<DetailedMovieEntity> {
+    override fun getDetailedMovie(): Flow<DetailedMovieEntity?> {
         return detailedMovieDao.getDetailedMovie()
     }
 
@@ -102,29 +100,33 @@ class MoviesRepositoryImpl(
     // region Extension Functions
 
     private fun DetailedMovieResponse.toDetailedMovieEntity(): DetailedMovieEntity? {
-        if (objectUtils.hasNullField(this)) return null
-        return DetailedMovieEntity(
-            id = this.id!!,
-            posterPath = this.posterPath!!.constructSmallPosterPath(),
-            title = this.originalTitle!!,
-            releaseDate = this.releaseDate!!,
-            voteCount = this.voteCount!!,
-            voteAverage = this.voteAverage!!,
-            overview = this.overview!!
+        return if (this.id == null || this.originalTitle == null || this.popularity == null ||
+            this.voteAverage == null || this.voteCount == null || this.releaseDate == null || this.posterPath == null || this.overview == null
         )
+            null
+        else
+            DetailedMovieEntity(
+                id = this.id,
+                posterPath = this.posterPath.constructBigPosterPath(),
+                title = this.originalTitle,
+                releaseDate = this.releaseDate,
+                voteCount = this.voteCount,
+                voteAverage = this.voteAverage,
+                overview = this.overview
+            )
     }
 
     private fun List<Result?>?.toExtraMoviesEntities(movieType: MovieType): List<MoviesEntity> {
         val extraMoviesList = mutableListOf<MoviesEntity>()
         this?.let {
-            this.filter {
-                it != null && !objectUtils.hasNullField(it)
+            this.filterNotNull().filter { movie ->
+                !movieHasNullFields(movie)
             }.map { movie ->
                 extraMoviesList.add(
                     MoviesEntity(
-                        id = movie!!.id!!,
+                        id = movie.id!!,
                         title = movie.originalTitle!!,
-                        posterPath = movie.posterPath!!.constructSmallPosterPath(),
+                        posterPath = movie.posterPath!!.constructBigPosterPath(),
                         voteAverage = movie.voteAverage!!,
                         voteCount = movie.voteCount!!,
                         releaseDate = movie.releaseDate!!,
@@ -136,17 +138,25 @@ class MoviesRepositoryImpl(
         return extraMoviesList
     }
 
+    private fun movieHasNullFields(movie: Result) =
+        movie.id == null || movie.originalTitle == null || movie.popularity == null ||
+                movie.voteAverage == null || movie.voteCount == null || movie.releaseDate == null || movie.posterPath == null
+
     private fun MoviesResult.toMovieEntity(movieType: MovieType): MoviesEntity? {
-        if (objectUtils.hasNullField(this)) return null
-        return MoviesEntity(
-            id = this.id!!,
-            posterPath = this.posterPath!!.constructSmallPosterPath(),
-            releaseDate = this.releaseDate!!,
-            title = this.originalTitle!!,
-            type = movieType,
-            voteAverage = this.voteAverage!!,
-            voteCount = this.voteCount!!
+        return if (this.id == null || this.originalTitle == null || this.popularity == null ||
+            this.voteAverage == null || this.voteCount == null || this.releaseDate == null || this.posterPath == null
         )
+            null
+        else
+            MoviesEntity(
+                id = this.id,
+                posterPath = this.posterPath.constructBigPosterPath(),
+                releaseDate = this.releaseDate,
+                title = this.originalTitle,
+                type = movieType,
+                voteAverage = this.voteAverage,
+                voteCount = this.voteCount
+            )
     }
 
     private fun String.constructSmallPosterPath(): String {
@@ -197,9 +207,7 @@ class MoviesRepositoryImpl(
     private fun getExtraMoviesToWrite(listOfExtraMoviesList: List<List<MoviesEntity>?>): List<MoviesEntity> {
         val extraMoviesToWrite = mutableListOf<MoviesEntity>()
         listOfExtraMoviesList.forEach { listOfExtraMovies ->
-            listOfExtraMovies?.filter { movie ->
-                !objectUtils.hasNullField(movie)
-            }?.forEach { nonNullMovie ->
+            listOfExtraMovies?.forEach { nonNullMovie ->
                 extraMoviesToWrite.add(nonNullMovie)
             }
         }

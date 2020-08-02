@@ -40,7 +40,7 @@ interface TvShowsRepository {
     /**
      * Returns a detailed movie as a [Flow]
      */
-    fun getDetailedMovie(): Flow<DetailedMovieEntity>
+    fun getDetailedMovie(): Flow<DetailedMovieEntity?>
 
     /**
      * Returns similar and recommended movies ([ExtraMovieType]) for the [DetailedMovieEntity]
