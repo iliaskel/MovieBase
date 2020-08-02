@@ -1,9 +1,9 @@
 package com.example.moviebase.model.repository
 
-import com.example.moviebase.model.database.entity.DetailedMovieEntity
-import com.example.moviebase.model.database.entity.MoviesEntity
-import com.example.moviebase.model.database.entity.TvShowType
-import com.example.moviebase.model.database.entity.TvShowsEntity
+import com.example.moviebase.model.database.entity.detailedmovie.DetailedMovieEntity
+import com.example.moviebase.model.database.entity.simplemovie.MoviesEntity
+import com.example.moviebase.model.database.entity.simplemovie.TvShowType
+import com.example.moviebase.model.database.entity.simplemovie.TvShowsEntity
 import kotlinx.coroutines.flow.Flow
 
 interface TvShowsRepository {

@@ -1,19 +1,20 @@
 package com.example.moviebase.model.repository
 
 import com.example.moviebase.model.database.TMDBDB
-import com.example.moviebase.model.database.entity.*
+import com.example.moviebase.model.database.entity.detailedmovie.DetailedMovieEntity
+import com.example.moviebase.model.database.entity.simplemovie.MoviesEntity
+import com.example.moviebase.model.database.entity.simplemovie.TvShowType
+import com.example.moviebase.model.database.entity.simplemovie.TvShowsEntity
 import com.example.moviebase.model.network.api.TMDBApiService
-import com.example.moviebase.model.network.detailedtvshow.DetailedTvShowResponse
-import com.example.moviebase.model.network.tvshows.TvShowResult
-import com.example.moviebase.model.network.tvshows.TvShowsResponse
-import com.example.moviebase.utils.IMAGES_BASE_URL
-import com.example.moviebase.utils.IMAGE_SMALL_SIZE
+import com.example.moviebase.model.network.simplemovie.SimpleMovieResponse
+import com.example.moviebase.model.utils.TvShowsTransformationsUtils
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 
 class TvShowsRepositoryImpl(
     tmdbDB: TMDBDB,
-    private val tmdbApiService: TMDBApiService
+    private val tmdbApiService: TMDBApiService,
+    private val tvShowsTransformationsUtils: TvShowsTransformationsUtils = TvShowsTransformationsUtils()
 ) : TvShowsRepository {
 
     // region Fields
@@ -42,10 +43,11 @@ class TvShowsRepositoryImpl(
                 getMappedMoviesAsync(playingNowMoviesDeferred, TvShowType.AIRING_NOW).await()
             val upcomingMovies =
                 getMappedMoviesAsync(upcomingMoviesDeferred, TvShowType.UPCOMING).await()
-            val latestMovie = latestTvShowDeferred.await().toLatestTvShowEntity()
+            val latestMovieResponse = latestTvShowDeferred.await()
+            val latestMovie = tvShowsTransformationsUtils.toLatestTvShowEntity(latestMovieResponse)
 
             val tvShowsToWrite =
-                getMoviesToWrite(
+                tvShowsTransformationsUtils.getTvShowsToWrite(
                     listOf(
                         popularMovies,
                         topRatedMovies,
@@ -54,14 +56,18 @@ class TvShowsRepositoryImpl(
                     )
                 )
             tvShowsDao.replaceTvShows(tvShowsToWrite)
-            latestTvShowDao.replaceLatestTvShow(latestMovie)
+            if (latestMovie != null) {
+                latestTvShowDao.replaceLatestTvShow(latestMovie)
+
+            }
         }
     }
 
     override suspend fun replaceDetailedTvShow(id: String) {
         withContext(Dispatchers.IO) {
             val detailedTvShow = tmdbApiService.getDetailedTvShow(id)
-            val detailedTvShowToWrite = detailedTvShow.toDetailedTvShowEntity()
+            val detailedTvShowToWrite =
+                tvShowsTransformationsUtils.toDetailedTvShowEntity(detailedTvShow)
 
             detailedMovieDao.replaceDetailedMovie(detailedTvShowToWrite)
         }
@@ -87,99 +93,15 @@ class TvShowsRepositoryImpl(
 
     // end region
 
-    // region Private Functions
-
-    private fun getMoviesToWrite(listOfTvShowsLists: List<List<TvShowsEntity>>): List<TvShowsEntity> {
-        val moviesToWrite = mutableListOf<TvShowsEntity>()
-        for (movieType in listOfTvShowsLists) {
-            for (movie in movieType) {
-                moviesToWrite.add(movie)
-            }
-        }
-        return moviesToWrite
-    }
-
-    private fun getExtraMoviesToWrite(listOfExtraMoviesList: List<List<MoviesEntity>>): List<MoviesEntity> {
-        val extraMoviesToWrite = mutableListOf<MoviesEntity>()
-        for (extraMovieType in listOfExtraMoviesList) {
-            for (movie in extraMovieType) {
-                extraMoviesToWrite.add(movie)
-            }
-        }
-        return extraMoviesToWrite
-    }
-
-    // endregion
-
     // region Extension Functions
 
     private fun CoroutineScope.getMappedMoviesAsync(
-        tvShowsDeferred: Deferred<TvShowsResponse>,
+        tvShowsDeferred: Deferred<SimpleMovieResponse>,
         movieType: TvShowType
     ): Deferred<List<TvShowsEntity>> {
         return async {
-            tvShowsDeferred.await().results.toMappedMovies(movieType)
-        }
-    }
-
-    private fun List<TvShowResult?>?.toMappedMovies(movieType: TvShowType): List<TvShowsEntity> {
-        val tvShowsResult = this?.filterNotNull()
-        if (tvShowsResult == null || tvShowsResult.isEmpty()) {
-            return emptyList()
-        }
-        val movieEntities = mutableListOf<TvShowsEntity>()
-        for (tvShow in tvShowsResult.iterator()) {
-            movieEntities.add(tvShow.toTvShowEntity(movieType))
-        }
-        return movieEntities
-    }
-
-    private fun TvShowResult.toTvShowEntity(movieType: TvShowType): TvShowsEntity {
-        return TvShowsEntity(
-            id = this.id,
-            posterPath = this.posterPath.constructSmallPosterPath(),
-            releaseDate = this.releaseDate,
-            title = this.originalTitle,
-            type = movieType,
-            voteAverage = this.voteAverage,
-            voteCount = this.voteCount
-        )
-    }
-
-    private fun DetailedTvShowResponse.toDetailedTvShowEntity(): DetailedMovieEntity {
-        return DetailedMovieEntity(
-            id = this.id,
-            posterPath = this.posterPath.constructSmallPosterPath(),
-            title = this.originalTitle,
-            releaseDate = this.releaseDate,
-            voteCount = this.voteCount,
-            voteAverage = this.voteAverage,
-            overview = this.overview
-        )
-    }
-
-    private fun DetailedTvShowResponse.toLatestTvShowEntity(): LatestTvShowEntity {
-        return LatestTvShowEntity(
-            id = this.id,
-            posterPath = this.posterPath.constructSmallPosterPath(),
-            title = this.originalTitle,
-            releaseDate = this.releaseDate,
-            voteCount = this.voteCount,
-            voteAverage = this.voteAverage,
-            overview = this.overview
-        )
-    }
-
-
-    private fun String.constructSmallPosterPath(): String {
-        return IMAGES_BASE_URL.plus(IMAGE_SMALL_SIZE).plus(this)
-    }
-
-    private fun CoroutineScope.getMappedDetailedTvShowAsync(
-        latestTvhShowDeferred: Deferred<DetailedTvShowResponse>
-    ): Deferred<DetailedTvShowResponse> {
-        return async {
-            latestTvhShowDeferred.await()
+            val tvShowsResults = tvShowsDeferred.await().results
+            return@async tvShowsTransformationsUtils.toMappedTvShows(tvShowsResults, movieType)
         }
     }
 
