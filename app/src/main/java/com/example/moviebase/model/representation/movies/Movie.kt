@@ -2,7 +2,7 @@ package com.example.moviebase.model.representation.movies
 
 import android.view.View
 
-interface IMovie {
+interface Movie {
     val id: Int
     val title: String
     val posterPath: String

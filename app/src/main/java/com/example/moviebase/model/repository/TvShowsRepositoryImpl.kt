@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.Flow
 class TvShowsRepositoryImpl(
     tmdbDB: TMDBDB,
     private val tmdbApiService: TMDBApiService,
-    private val tvShowsTransformationsUtils: TvShowsTransformationsUtils = TvShowsTransformationsUtils()
+    private val tvShowsTransformationsUtils: TvShowsTransformationsUtils
 ) : TvShowsRepository {
 
     // region Fields
@@ -44,10 +44,12 @@ class TvShowsRepositoryImpl(
             val upcomingMovies =
                 getMappedMoviesAsync(upcomingMoviesDeferred, TvShowType.UPCOMING).await()
             val latestMovieResponse = latestTvShowDeferred.await()
-            val latestMovie = tvShowsTransformationsUtils.toLatestTvShowEntity(latestMovieResponse)
+            val latestMovie = tvShowsTransformationsUtils.detailedTvShowResponseToLatestTvEntity(
+                latestMovieResponse
+            )
 
             val tvShowsToWrite =
-                tvShowsTransformationsUtils.getTvShowsToWrite(
+                tvShowsTransformationsUtils.flatTvShowsLists(
                     listOf(
                         popularMovies,
                         topRatedMovies,
@@ -101,7 +103,10 @@ class TvShowsRepositoryImpl(
     ): Deferred<List<TvShowsEntity>> {
         return async {
             val tvShowsResults = tvShowsDeferred.await().results
-            return@async tvShowsTransformationsUtils.toMappedTvShows(tvShowsResults, movieType)
+            return@async tvShowsTransformationsUtils.detailedTvShowResultsToEntities(
+                tvShowsResults,
+                movieType
+            )
         }
     }
 

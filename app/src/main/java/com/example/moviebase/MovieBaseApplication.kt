@@ -20,7 +20,9 @@ class MovieBaseApplication() : Application() {
                     databaseModule,
                     repositoryModule,
                     mainViewModel,
-                    detailedMovieViewModel
+                    detailedMovieViewModel,
+                    moviesTransformationsModule,
+                    tvShowsTransformationsModule
                 )
             )
         }

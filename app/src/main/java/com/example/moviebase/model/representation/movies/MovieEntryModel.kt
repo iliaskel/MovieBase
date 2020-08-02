@@ -12,4 +12,4 @@ data class MovieEntryModel(
     override val voteCount: Int,
     override val clickAction: (view: View) -> Unit?,
     val movieType: MovieType
-) : IMovie
+) : Movie

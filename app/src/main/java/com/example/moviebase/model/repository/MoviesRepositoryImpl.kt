@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 class MoviesRepositoryImpl(
     tmdbDb: TMDBDB,
     private val tmdbApiService: TMDBApiService,
-    private val transformationUtils: MoviesTransformationsUtils = MoviesTransformationsUtils()
+    private val transformationUtils: MoviesTransformationsUtils
 ) : MoviesRepository {
 
     // region Fields
@@ -27,24 +27,32 @@ class MoviesRepositoryImpl(
 
     override suspend fun updateMovies() {
         withContext(Dispatchers.IO) {
-            val popularMoviesDeferred = async { tmdbApiService.getPopularMovies() }
             val popularMovies =
-                getMappedMoviesAsync(popularMoviesDeferred, MovieType.POPULAR).await()
+                getMappedMoviesAsync(
+                    async { tmdbApiService.getPopularMovies() },
+                    MovieType.POPULAR
+                ).await()
 
-            val topRatedMoviesDeferred = async { tmdbApiService.getTopRatedMovies() }
             val topRatedMovies =
-                getMappedMoviesAsync(topRatedMoviesDeferred, MovieType.TOP_RATED).await()
+                getMappedMoviesAsync(
+                    async { tmdbApiService.getTopRatedMovies() },
+                    MovieType.TOP_RATED
+                ).await()
 
-            val playingNowMoviesDeferred = async { tmdbApiService.getPlayingNowMovies() }
             val playingNowMovies =
-                getMappedMoviesAsync(playingNowMoviesDeferred, MovieType.NOW_PLAYING).await()
+                getMappedMoviesAsync(
+                    async { tmdbApiService.getPlayingNowMovies() },
+                    MovieType.NOW_PLAYING
+                ).await()
 
-            val upcomingMoviesDeferred = async { tmdbApiService.getUpcomingMovies() }
             val upcomingMovies =
-                getMappedMoviesAsync(upcomingMoviesDeferred, MovieType.UPCOMING).await()
+                getMappedMoviesAsync(
+                    async { tmdbApiService.getUpcomingMovies() },
+                    MovieType.UPCOMING
+                ).await()
 
             val moviesToWrite =
-                transformationUtils.getMoviesToWrite(
+                transformationUtils.flatMovieLists(
                     listOf(
                         popularMovies,
                         topRatedMovies,
@@ -58,21 +66,22 @@ class MoviesRepositoryImpl(
 
     override suspend fun updateDetailedMovie(id: String) {
         withContext(Dispatchers.IO) {
-            val detailedMovie = tmdbApiService.getDetailedMovie(id)
+            val detailedMovieResponse = tmdbApiService.getDetailedMovie(id)
             val similarMoviesResult =
-                detailedMovie.similar?.detailedMoviesResult
+                detailedMovieResponse.similar?.detailedMoviesResult
             val similarMovies = transformationUtils.toExtraMoviesEntities(
                 similarMoviesResult,
                 MovieType.EXTRA_MOVIES_SIMILAR
             )
             val recommendedMoviesResult =
-                detailedMovie.recommendations?.results
+                detailedMovieResponse.recommendations?.results
             val recommendedMovies = transformationUtils.toExtraMoviesEntities(
                 recommendedMoviesResult,
                 MovieType.EXTRA_MOVIES_RECOMMENDED
             )
-            if (detailedMovie.id != null) {
-                val detailedMovieToWrite = transformationUtils.toDetailedMovieEntity(detailedMovie)
+            if (detailedMovieResponse.id != null) {
+                val detailedMovieToWrite =
+                    transformationUtils.toDetailedMovieEntity(detailedMovieResponse)
                 val extraMoviesToWrite =
                     transformationUtils.getExtraMoviesToWrite(
                         listOf(

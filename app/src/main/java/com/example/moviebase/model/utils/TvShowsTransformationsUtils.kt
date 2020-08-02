@@ -6,13 +6,11 @@ import com.example.moviebase.model.database.entity.simplemovie.TvShowType
 import com.example.moviebase.model.database.entity.simplemovie.TvShowsEntity
 import com.example.moviebase.model.network.detailedmovie.tvshows.DetailedTvShowResponse
 import com.example.moviebase.model.network.simplemovie.SimpleMovieResult
-import com.example.moviebase.utils.IMAGES_BASE_URL
-import com.example.moviebase.utils.IMAGE_BIG_SIZE
-import com.example.moviebase.utils.IMAGE_SMALL_SIZE
+import com.example.moviebase.model.utils.ImagePathUtils.Companion.constructBigPosterPath
 
 class TvShowsTransformationsUtils {
 
-    fun toLatestTvShowEntity(detailedTvShowResponse: DetailedTvShowResponse): LatestTvShowEntity? {
+    fun detailedTvShowResponseToLatestTvEntity(detailedTvShowResponse: DetailedTvShowResponse): LatestTvShowEntity? {
         return if (
             detailedTvShowResponse.id == null || detailedTvShowResponse.posterPath == null ||
             detailedTvShowResponse.originalTitle == null || detailedTvShowResponse.releaseDate == null ||
@@ -22,7 +20,7 @@ class TvShowsTransformationsUtils {
         else
             LatestTvShowEntity(
                 id = detailedTvShowResponse.id,
-                posterPath = detailedTvShowResponse.posterPath.constructSmallPosterPath(),
+                posterPath = detailedTvShowResponse.posterPath.constructBigPosterPath(),
                 title = detailedTvShowResponse.originalTitle,
                 releaseDate = detailedTvShowResponse.releaseDate,
                 voteCount = detailedTvShowResponse.voteCount,
@@ -31,7 +29,7 @@ class TvShowsTransformationsUtils {
             )
     }
 
-    fun getTvShowsToWrite(listOfTvShowsLists: List<List<TvShowsEntity>>): List<TvShowsEntity> {
+    fun flatTvShowsLists(listOfTvShowsLists: List<List<TvShowsEntity>>): List<TvShowsEntity> {
         val moviesToWrite = mutableListOf<TvShowsEntity>()
         for (movieType in listOfTvShowsLists) {
             for (movie in movieType) {
@@ -59,7 +57,7 @@ class TvShowsTransformationsUtils {
             )
     }
 
-    fun toMappedTvShows(
+    fun detailedTvShowResultsToEntities(
         tvShowsResults: List<SimpleMovieResult?>?,
         movieType: TvShowType
     ): List<TvShowsEntity> {
@@ -94,13 +92,4 @@ class TvShowsTransformationsUtils {
                 voteCount = tvShowResult.voteCount!!
             )
     }
-
-    private fun String.constructSmallPosterPath(): String {
-        return IMAGES_BASE_URL.plus(IMAGE_SMALL_SIZE).plus(this)
-    }
-
-    private fun String.constructBigPosterPath(): String {
-        return IMAGES_BASE_URL.plus(IMAGE_BIG_SIZE).plus(this)
-    }
-
 }

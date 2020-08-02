@@ -4,6 +4,8 @@ import androidx.room.Room
 import com.example.moviebase.model.database.TMDBDB
 import com.example.moviebase.model.network.api.TMDBApiService
 import com.example.moviebase.model.repository.MoviesRepositoryImpl
+import com.example.moviebase.model.utils.MoviesTransformationsUtils
+import com.example.moviebase.model.utils.TvShowsTransformationsUtils
 import com.example.moviebase.utils.BASE_URL
 import com.example.moviebase.viewmodel.DetailedMovieViewModelImpl
 import com.example.moviebase.viewmodel.MainViewModelImpl
@@ -28,8 +30,16 @@ val databaseModule = module {
 
 val repositoryModule = module {
     factory {
-        MoviesRepositoryImpl(tmdbDb = get(), tmdbApiService = get())
+        MoviesRepositoryImpl(tmdbDb = get(), tmdbApiService = get(), transformationUtils = get())
     }
+}
+
+val moviesTransformationsModule = module {
+    single { MoviesTransformationsUtils() }
+}
+
+val tvShowsTransformationsModule = module {
+    single { TvShowsTransformationsUtils() }
 }
 
 val mainViewModel = module {

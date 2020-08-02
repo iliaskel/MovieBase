@@ -3,26 +3,24 @@ package com.example.moviebase.model.utils
 import com.example.moviebase.model.database.entity.detailedmovie.DetailedMovieEntity
 import com.example.moviebase.model.database.entity.simplemovie.MovieType
 import com.example.moviebase.model.database.entity.simplemovie.MoviesEntity
-import com.example.moviebase.model.database.entity.simplemovie.TvShowsEntity
 import com.example.moviebase.model.network.detailedmovie.DetailedMovieResult
 import com.example.moviebase.model.network.detailedmovie.movies.DetailedMovieResponse
 import com.example.moviebase.model.network.simplemovie.SimpleMovieResult
-import com.example.moviebase.utils.IMAGES_BASE_URL
-import com.example.moviebase.utils.IMAGE_BIG_SIZE
-import com.example.moviebase.utils.IMAGE_SMALL_SIZE
+import com.example.moviebase.model.utils.ImagePathUtils.Companion.constructBigPosterPath
 
 class MoviesTransformationsUtils {
 
     fun toDetailedMovieEntity(detailedMovie: DetailedMovieResponse): DetailedMovieEntity? {
-        return DetailedMovieEntity(
-            id = detailedMovie.id!!,
-            posterPath = detailedMovie.posterPath!!.constructSmallPosterPath(),
-            title = detailedMovie.originalTitle!!,
-            releaseDate = detailedMovie.releaseDate!!,
-            voteCount = detailedMovie.voteCount!!,
-            voteAverage = detailedMovie.voteAverage!!,
-            overview = detailedMovie.overview!!
-        )
+        if (detailedMovie)
+            return DetailedMovieEntity(
+                id = detailedMovie.id!!,
+                posterPath = detailedMovie.posterPath!!.constructBigPosterPath(),
+                title = detailedMovie.originalTitle!!,
+                releaseDate = detailedMovie.releaseDate!!,
+                voteCount = detailedMovie.voteCount!!,
+                voteAverage = detailedMovie.voteAverage!!,
+                overview = detailedMovie.overview!!
+            )
     }
 
     fun toExtraMoviesEntities(
@@ -36,7 +34,7 @@ class MoviesTransformationsUtils {
                     MoviesEntity(
                         id = movie.id!!,
                         title = movie.originalTitle!!,
-                        posterPath = movie.posterPath!!.constructSmallPosterPath(),
+                        posterPath = movie.posterPath!!.constructBigPosterPath(),
                         voteAverage = movie.voteAverage!!,
                         voteCount = movie.voteCount!!,
                         releaseDate = movie.releaseDate!!,
@@ -51,7 +49,7 @@ class MoviesTransformationsUtils {
     private fun toMovieEntity(movieResult: SimpleMovieResult, movieType: MovieType): MoviesEntity? {
         return MoviesEntity(
             id = movieResult.id!!,
-            posterPath = movieResult.posterPath!!.constructSmallPosterPath(),
+            posterPath = movieResult.posterPath!!.constructBigPosterPath(),
             releaseDate = movieResult.releaseDate!!,
             title = movieResult.originalTitle!!,
             type = movieType,
@@ -78,18 +76,8 @@ class MoviesTransformationsUtils {
         return movieEntities
     }
 
-    fun getMoviesToWrite(listOfMovieLists: List<List<MoviesEntity>>): List<MoviesEntity> {
+    fun flatMovieLists(listOfMovieLists: List<List<MoviesEntity>>): List<MoviesEntity> {
         val moviesToWrite = mutableListOf<MoviesEntity>()
-        for (movieType in listOfMovieLists) {
-            for (movie in movieType) {
-                moviesToWrite.add(movie)
-            }
-        }
-        return moviesToWrite
-    }
-
-    fun getTvShowsToWrite(listOfMovieLists: List<List<TvShowsEntity>>): List<TvShowsEntity> {
-        val moviesToWrite = mutableListOf<TvShowsEntity>()
         for (movieType in listOfMovieLists) {
             for (movie in movieType) {
                 moviesToWrite.add(movie)
@@ -106,14 +94,6 @@ class MoviesTransformationsUtils {
             }
         }
         return extraMoviesToWrite
-    }
-
-    private fun String.constructSmallPosterPath(): String {
-        return IMAGES_BASE_URL.plus(IMAGE_SMALL_SIZE).plus(this)
-    }
-
-    private fun String.constructBigPosterPath(): String {
-        return IMAGES_BASE_URL.plus(IMAGE_BIG_SIZE).plus(this)
     }
 
 }
