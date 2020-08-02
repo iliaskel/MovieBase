@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/movies_view_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_m"
+        android:elevation="@dimen/movie_view_title_default_state_elevation"
+        android:textAlignment="viewStart"
+        android:textColor="@color/primaryDark"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        app:layout_constraintBottom_toTopOf="@+id/movies_view_movie_entries_recycler_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="Movies" />
+
+    <com.example.moviebase.view.widgets.mainview.recyclerview.MovieItemsRecyclerView
+        android:id="@+id/movies_view_movie_entries_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:clipChildren="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movies_view_title"
+        tools:listitem="@layout/widget_fragment_main_movie_tile_list_item" />
+
+</merge>

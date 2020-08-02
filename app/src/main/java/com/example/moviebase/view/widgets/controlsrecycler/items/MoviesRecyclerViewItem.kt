@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecycleViewType
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
 import com.example.moviebase.model.representation.MoviesRecyclerViewItemModel
-import com.example.moviebase.view.widgets.mainview.MainMoviesView
+import com.example.moviebase.view.widgets.mainview.MoviesView
 
 class MoviesRecyclerViewItem(
     private val moviesRecyclerViewItemModel: MoviesRecyclerViewItemModel
@@ -17,10 +17,8 @@ class MoviesRecyclerViewItem(
             override fun getItemViewType(): Int = this.hashCode()
 
             override fun createViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
-                return MainMoviesViewHolder(
-                    MainMoviesView(
-                        parent.context
-                    )
+                return MovieViewHolder(
+                    MoviesView(parent.context)
                 )
             }
         }
@@ -30,9 +28,9 @@ class MoviesRecyclerViewItem(
 
     override fun bindView(holder: RecyclerView.ViewHolder, defaultId: Int) {
         super.bindView(holder, defaultId)
-        if (holder is MainMoviesViewHolder) {
-            holder.view.updateTitle(moviesRecyclerViewItemModel.title)
-            holder.view.setMovies(moviesRecyclerViewItemModel.moviesEntriesList)
+        if (holder is MovieViewHolder) {
+            holder.moviesView.updateTitle(moviesRecyclerViewItemModel.title)
+            holder.moviesView.setMovies(moviesRecyclerViewItemModel.moviesEntriesList)
         }
     }
 
@@ -48,5 +46,5 @@ class MoviesRecyclerViewItem(
         } else false
     }
 
-    class MainMoviesViewHolder(val view: MainMoviesView) : RecyclerView.ViewHolder(view)
+    class MovieViewHolder(val moviesView: MoviesView) : RecyclerView.ViewHolder(moviesView)
 }

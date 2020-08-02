@@ -1,29 +1,34 @@
 package com.example.moviebase.viewmodel
 
+import android.os.Bundle
+import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.findNavController
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
+import com.example.moviebase.R
 import com.example.moviebase.model.database.entity.MovieType
 import com.example.moviebase.model.database.entity.MoviesEntity
-import com.example.moviebase.model.repository.RepositoryImpl
-import com.example.moviebase.model.representation.MovieEntryModel
+import com.example.moviebase.model.repository.MoviesRepositoryImpl
 import com.example.moviebase.model.representation.MoviesRecyclerViewItemModel
+import com.example.moviebase.model.representation.movies.MovieEntryModel
 import com.example.moviebase.view.widgets.controlsrecycler.items.MoviesRecyclerViewItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class MainViewModelImpl(
-    private val repository: RepositoryImpl
+    private val repository: MoviesRepositoryImpl
 ) : ViewModel(), MainViewModel {
 
     // region Implements
 
     override fun fetchMovies() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.replaceMovies()
+            repository.updateMovies()
         }
     }
 
@@ -37,8 +42,8 @@ class MainViewModelImpl(
         return repository.getMovies().map { movieList ->
             val items = mutableListOf<RecyclerViewItem>()
             movieList.toRepresentationModelList().apply {
-                addMoviesByMovieType(MovieType.NOW_PLAYING, items)
                 addMoviesByMovieType(MovieType.POPULAR, items)
+                addMoviesByMovieType(MovieType.NOW_PLAYING, items)
                 addMoviesByMovieType(MovieType.TOP_RATED, items)
                 addMoviesByMovieType(MovieType.UPCOMING, items)
             }
@@ -51,7 +56,7 @@ class MainViewModelImpl(
         items: MutableList<RecyclerViewItem>
     ) {
         this.filter {
-            it.type == movieType
+            it.movieType == movieType
         }.apply {
             items.add(
                 MoviesRecyclerViewItem(
@@ -73,7 +78,7 @@ class MainViewModelImpl(
             releaseDate = this.releaseDate,
             voteAverage = this.voteAverage,
             voteCount = this.voteCount,
-            type = this.type,
+            movieType = this.type,
             clickAction = getClickAction(this.id)
         )
     }
@@ -90,10 +95,14 @@ class MainViewModelImpl(
 
     // region Private Functions
 
-    private fun getClickAction(id: Int): (() -> Unit)? {
-        // trigger navigation to detailed screen
-        return null
+    private fun getClickAction(id: Int): (view: View) -> Unit? {
+        return {
+            val bundle: Bundle = bundleOf(Pair("movieId", id.toString()))
+            it.findNavController()
+                .navigate(R.id.action_mainFragment_to_detailedMovieFragment, bundle)
+        }
     }
+
 
     // endregion
 }

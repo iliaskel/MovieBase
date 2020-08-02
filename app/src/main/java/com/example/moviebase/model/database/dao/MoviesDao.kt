@@ -21,4 +21,19 @@ interface MoviesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovies(movies: List<MoviesEntity>)
+
+    @Transaction
+    suspend fun replaceExtraMovies(extraMoviesList: List<MoviesEntity>) {
+        deleteExtraMovies()
+        insertExtraMovies(extraMoviesList)
+    }
+
+    @Query("DELETE from movies_table WHERE type = 4 OR type = 5")
+    suspend fun deleteExtraMovies()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertExtraMovies(extraMovies: List<MoviesEntity>)
+
+    @Query("SELECT * from movies_table WHERE type = 4 OR type = 5")
+    fun getExtraMovies(): Flow<List<MoviesEntity>>
 }

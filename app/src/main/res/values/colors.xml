@@ -1,11 +1,28 @@
 <!--?xml version="1.0" encoding="UTF-8"?-->
 <resources>
-  <color name="primaryColor">#f5f5f5</color>
-  <color name="primaryLightColor">#ffffff</color>
-  <color name="primaryDarkColor">#c2c2c2</color>
-  <color name="secondaryColor">#f5f5f5</color>
-  <color name="secondaryLightColor">#ffffff</color>
-  <color name="secondaryDarkColor">#c2c2c2</color>
-  <color name="primaryTextColor">#FFFFFF</color>
-  <color name="secondaryTextColor">#000000</color>
+
+    <color name="primary">#0d253f</color>
+    <color name="primaryLight">#394d6a</color>
+    <color name="primaryDark">#000000</color>
+    <color name="tertiary">#90cea1</color>
+
+
+    <color name="secondary">#00789e</color>
+    <color name="secondaryLight">#51a7cf</color>
+    <color name="secondaryDark">#004c6f</color>
+
+    <color name="background">#FFFFFF</color>
+    <color name="surface">#700d253f</color>
+    <color name="error">#B00020</color>
+
+    <color name="onPrimary">#FFFFFFFF</color>
+    <color name="onSecondary">#ffffff</color>
+    <color name="onBackground">#000000</color>
+    <color name="onSurface">#CCFFFFFF</color>
+    <color name="onError">#FFFFFF</color>
+
+    <color name="background_gradient_start_color">#000000</color>
+    <color name="background_gradient_middle_color">#203A43</color>
+    <color name="background_gradient_end_color">#434343</color>
+
 </resources>

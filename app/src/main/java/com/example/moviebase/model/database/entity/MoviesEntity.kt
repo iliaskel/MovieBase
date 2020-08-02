@@ -10,14 +10,14 @@ import androidx.room.TypeConverters
 @TypeConverters(MovieTypeConverters::class)
 data class MoviesEntity(
     @PrimaryKey(autoGenerate = false)
-    val id: Int,
-    val title: String,
-    val posterPath: String,
-    val releaseDate: String,
-    val voteAverage: Double,
-    val voteCount: Int,
+    override val id: Int,
+    override val title: String,
+    override val posterPath: String,
+    override val releaseDate: String,
+    override val voteAverage: Double,
+    override val voteCount: Int,
     val type: MovieType
-)
+) : IMovieEntity
 
 class MovieTypeConverters() {
     @TypeConverter
@@ -27,6 +27,8 @@ class MovieTypeConverters() {
             1 -> MovieType.NOW_PLAYING
             2 -> MovieType.TOP_RATED
             3 -> MovieType.UPCOMING
+            4 -> MovieType.EXTRA_MOVIES_RECOMMENDED
+            5 -> MovieType.EXTRA_MOVIES_SIMILAR
             else -> MovieType.UNKNOWN
         }
     }
@@ -42,10 +44,12 @@ class MovieTypeConverters() {
     }
 }
 
-enum class MovieType(val code: Int, val title: String) {
+enum class  MovieType(val code: Int, val title: String) {
     POPULAR(0, "Popular"),
     NOW_PLAYING(1, "Now Playing"),
     TOP_RATED(2, "Top Rated"),
     UPCOMING(3, "Upcoming"),
+    EXTRA_MOVIES_RECOMMENDED(4, "Recommended"),
+    EXTRA_MOVIES_SIMILAR(5, "Similar"),
     UNKNOWN(-1, "")
 }

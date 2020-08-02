@@ -4,23 +4,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.navigation.fragment.findNavController
 import com.example.moviebase.R
 import com.example.moviebase.view.widgets.controlsrecycler.ControlsRecyclerAdapter
-import com.example.moviebase.view.widgets.controlsrecycler.ControlsRecyclerItemDecoration
+import com.example.moviebase.view.widgets.controlsrecycler.itemdecorations.MainViewItemDecoration
 import com.example.moviebase.view.widgets.controlsrecycler.items.MoviesRecyclerViewItem
+import com.example.moviebase.viewmodel.MainViewModel
 import com.example.moviebase.viewmodel.MainViewModelImpl
 import kotlinx.android.synthetic.main.fragment_main.*
+import org.koin.android.ext.android.getKoin
+import org.koin.androidx.viewmodel.ViewModelParameter
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.koin.getViewModel
+import org.koin.core.parameter.ParametersDefinition
+import org.koin.core.qualifier.Qualifier
 
 class MainFragment : Fragment() {
 
     // region Fields
 
-    private val mainViewModel by viewModel<MainViewModelImpl>()
+    private val mainViewModel: MainViewModel by viewModel<MainViewModelImpl>()
     private val controlsRecyclerAdapter =
-        ControlsRecyclerAdapter(MoviesRecyclerViewItem.viewType)
+        ControlsRecyclerAdapter(
+            MoviesRecyclerViewItem.viewType
+        )
 
     // endregion
 
@@ -39,7 +50,7 @@ class MainFragment : Fragment() {
         main_fragment_controls_recycler_view.apply {
             adapter = controlsRecyclerAdapter
             addItemDecoration(
-                ControlsRecyclerItemDecoration(
+                MainViewItemDecoration(
                     resources.getDimension(R.dimen.space_s).toInt()
                 )
             )
@@ -61,6 +72,4 @@ class MainFragment : Fragment() {
             controlsRecyclerAdapter.submitList(it)
         })
     }
-
-    // endregion
 }

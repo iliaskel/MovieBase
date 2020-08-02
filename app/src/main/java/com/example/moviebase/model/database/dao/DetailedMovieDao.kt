@@ -11,7 +11,7 @@ interface DetailedMovieDao {
     fun getDetailedMovie(): Flow<DetailedMovieEntity>
 
     @Transaction
-    suspend fun replaceDetailedMovie(detailedMovie: DetailedMovieEntity) {
+    suspend fun replaceDetailedMovie(detailedMovie: DetailedMovieEntity?) {
         deleteDetailedMovie()
         insertDetailedMovie(detailedMovie)
     }
@@ -20,5 +20,5 @@ interface DetailedMovieDao {
     suspend fun deleteDetailedMovie()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDetailedMovie(detailedMovie: DetailedMovieEntity)
+    suspend fun insertDetailedMovie(detailedMovie: DetailedMovieEntity?)
 }

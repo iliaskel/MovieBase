@@ -3,7 +3,7 @@ package com.example.moviebase.di
 import androidx.room.Room
 import com.example.moviebase.model.database.TMDBDB
 import com.example.moviebase.model.network.api.TMDBApiService
-import com.example.moviebase.model.repository.RepositoryImpl
+import com.example.moviebase.model.repository.MoviesRepositoryImpl
 import com.example.moviebase.utils.BASE_URL
 import com.example.moviebase.viewmodel.DetailedMovieViewModelImpl
 import com.example.moviebase.viewmodel.MainViewModelImpl
@@ -28,7 +28,7 @@ val databaseModule = module {
 
 val repositoryModule = module {
     factory {
-        RepositoryImpl(tmdbDb = get(), tmdbApiService = get())
+        MoviesRepositoryImpl(tmdbDb = get(), tmdbApiService = get())
     }
 }
 

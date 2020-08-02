@@ -8,4 +8,11 @@
     <dimen name="space_l">24dp</dimen>
     <dimen name="space_xl">32dp</dimen>
     <dimen name="space_xxl">64dp</dimen>
+
+    <!-- Elevation values -->
+
+    <dimen name="movie_view_title_default_state_elevation">8dp</dimen>
+    <dimen name="movie_tile_default_state_elevation">6dp</dimen>
+    <dimen name="movie_tile_pressed_state_elevation">2dp</dimen>
+
 </resources>

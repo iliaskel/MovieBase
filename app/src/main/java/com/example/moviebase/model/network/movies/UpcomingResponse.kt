@@ -1,5 +1,6 @@
 package com.example.moviebase.model.network.movies
 
+import com.example.moviebase.model.database.entity.MovieType
 import com.google.gson.annotations.SerializedName
 
 data class UpcomingResponse(
@@ -8,5 +9,6 @@ data class UpcomingResponse(
     @SerializedName("total_pages")
     override val totalPages: Int?,
     @SerializedName("total_results")
-    override val totalResults: Int?
-) : MoviesResponse
+    override val totalResults: Int?,
+    val type: MovieType = MovieType.UPCOMING
+) : IMoviesResponse

@@ -3,13 +3,13 @@ package com.example.moviebase.viewmodel
 import androidx.lifecycle.LiveData
 import com.bshg.homeconnect.app.ui2019.widgets.controlsrecycler.RecyclerViewItem
 import com.example.moviebase.model.database.entity.MovieType
-import com.example.moviebase.model.repository.Repository
-import com.example.moviebase.model.representation.MovieEntryModel
+import com.example.moviebase.model.repository.MoviesRepository
+import com.example.moviebase.model.representation.movies.MovieEntryModel
 
 interface MainViewModel {
 
     /**
-     * Triggers the fetching of movies of [MovieType] from the [Repository]
+     * Triggers the fetching of movies of [MovieType] from the [MoviesRepository]
      */
     fun fetchMovies()
 
